@@ -1,0 +1,286 @@
+
+pack.png
+size: 2048,1024
+format: RGBA8888
+filter: Nearest,Linear
+repeat: none
+astronaut
+  rotate: false
+  xy: 1461, 654
+  size: 61, 80
+  orig: 61, 80
+  offset: 0, 0
+  index: -1
+astronaut_fall
+  rotate: false
+  xy: 1979, 932
+  size: 56, 90
+  orig: 56, 90
+  offset: 0, 0
+  index: -1
+astronaut_model
+  rotate: false
+  xy: 1377, 580
+  size: 53, 70
+  orig: 53, 70
+  offset: 0, 0
+  index: -1
+done_btn
+  rotate: false
+  xy: 1226, 284
+  size: 146, 91
+  orig: 146, 91
+  offset: 0, 0
+  index: -1
+done_btn_down
+  rotate: false
+  xy: 966, 104
+  size: 146, 91
+  orig: 146, 91
+  offset: 0, 0
+  index: -1
+front_wheel
+  rotate: false
+  xy: 244, 18
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: -1
+rear_wheel
+  rotate: false
+  xy: 244, 18
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: -1
+game_completed
+  rotate: false
+  xy: 804, 737
+  size: 591, 144
+  orig: 591, 144
+  offset: 0, 0
+  index: -1
+game_over
+  rotate: false
+  xy: 804, 445
+  size: 407, 144
+  orig: 407, 144
+  offset: 0, 0
+  index: -1
+intro_bg
+  rotate: false
+  xy: 2, 542
+  size: 800, 480
+  orig: 800, 480
+  offset: 0, 0
+  index: -1
+joystick
+  rotate: false
+  xy: 1426, 922
+  size: 186, 100
+  orig: 186, 100
+  offset: 0, 0
+  index: -1
+joystick_left
+  rotate: false
+  xy: 804, 197
+  size: 186, 100
+  orig: 186, 100
+  offset: 0, 0
+  index: -1
+joystick_right
+  rotate: false
+  xy: 1614, 922
+  size: 186, 100
+  orig: 186, 100
+  offset: 0, 0
+  index: -1
+jump1
+  rotate: false
+  xy: 992, 197
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+jump1_down
+  rotate: false
+  xy: 1068, 2
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+jump2
+  rotate: false
+  xy: 966, 2
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+jump2_down
+  rotate: false
+  xy: 1094, 211
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+jump_gauge_off
+  rotate: false
+  xy: 1802, 922
+  size: 8, 7
+  orig: 8, 7
+  offset: 0, 0
+  index: -1
+jump_gauge_on
+  rotate: false
+  xy: 1213, 461
+  size: 8, 7
+  orig: 8, 7
+  offset: 0, 0
+  index: -1
+level_bg
+  rotate: false
+  xy: 2, 60
+  size: 800, 480
+  orig: 800, 480
+  offset: 0, 0
+  index: -1
+level_completed
+  rotate: false
+  xy: 804, 591
+  size: 571, 144
+  orig: 571, 144
+  offset: 0, 0
+  index: -1
+level_icon_bg
+  rotate: false
+  xy: 1709, 838
+  size: 82, 82
+  orig: 82, 82
+  offset: 0, 0
+  index: -1
+level_icon_bg_down
+  rotate: false
+  xy: 1532, 732
+  size: 95, 95
+  orig: 95, 95
+  offset: 0, 0
+  index: -1
+level_icon_hilite
+  rotate: false
+  xy: 1094, 313
+  size: 130, 130
+  orig: 130, 130
+  offset: 0, 0
+  index: -1
+level_icon_lock
+  rotate: false
+  xy: 286, 17
+  size: 30, 41
+  orig: 30, 41
+  offset: 0, 0
+  index: -1
+paused
+  rotate: false
+  xy: 804, 299
+  size: 288, 144
+  orig: 288, 144
+  offset: 0, 0
+  index: -1
+play_btn
+  rotate: false
+  xy: 1196, 191
+  size: 146, 91
+  orig: 146, 91
+  offset: 0, 0
+  index: -1
+play_btn_down
+  rotate: false
+  xy: 1426, 829
+  size: 146, 91
+  orig: 146, 91
+  offset: 0, 0
+  index: -1
+please_wait
+  rotate: false
+  xy: 2, 3
+  size: 240, 55
+  orig: 240, 55
+  offset: 0, 0
+  index: -1
+quit_btn
+  rotate: false
+  xy: 1574, 829
+  size: 133, 91
+  orig: 133, 91
+  offset: 0, 0
+  index: -1
+quit_btn_down
+  rotate: false
+  xy: 1397, 736
+  size: 133, 91
+  orig: 133, 91
+  offset: 0, 0
+  index: -1
+rate
+  rotate: false
+  xy: 1629, 745
+  size: 82, 82
+  orig: 82, 82
+  offset: 0, 0
+  index: -1
+rate_down
+  rotate: false
+  xy: 1713, 754
+  size: 82, 82
+  orig: 82, 82
+  offset: 0, 0
+  index: -1
+retry_btn
+  rotate: false
+  xy: 1802, 931
+  size: 175, 91
+  orig: 175, 91
+  offset: 0, 0
+  index: -1
+retry_btn_down
+  rotate: false
+  xy: 1226, 377
+  size: 175, 91
+  orig: 175, 91
+  offset: 0, 0
+  index: -1
+rover
+  rotate: false
+  xy: 1213, 470
+  size: 160, 119
+  orig: 160, 119
+  offset: 0, 0
+  index: -1
+rover_model
+  rotate: false
+  xy: 804, 76
+  size: 160, 119
+  orig: 160, 119
+  offset: 0, 0
+  index: -1
+share
+  rotate: false
+  xy: 1377, 652
+  size: 82, 82
+  orig: 82, 82
+  offset: 0, 0
+  index: -1
+share_down
+  rotate: false
+  xy: 1524, 648
+  size: 82, 82
+  orig: 82, 82
+  offset: 0, 0
+  index: -1
+title
+  rotate: false
+  xy: 804, 883
+  size: 620, 139
+  orig: 620, 139
+  offset: 0, 0
+  index: -1
