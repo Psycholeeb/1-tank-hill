@@ -1,4 +1,4 @@
-package vlad.stupak.utils.controls;
+package vlad.stupak.controls;
 
 /**
  * Created by Vlad on 27.02.2017.
