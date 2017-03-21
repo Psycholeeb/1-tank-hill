@@ -1,4 +1,4 @@
-package vlad.stupak.Media;
+package vlad.stupak.media;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
