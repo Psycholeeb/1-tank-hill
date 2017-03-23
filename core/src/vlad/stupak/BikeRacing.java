@@ -17,6 +17,11 @@ import com.boontaran.games.StageGame;
 
 import java.util.Locale;
 
+import vlad.stupak.media.Media;
+import vlad.stupak.screens.Intro;
+import vlad.stupak.screens.LevelList;
+import vlad.stupak.utils.Data;
+
 public class BikeRacing extends Game {
 	public static final int SHOW_BANNER = 1;
 	public static final int HIDE_BANNER = 2;
@@ -35,6 +40,11 @@ public class BikeRacing extends Game {
 	private String path_to_atlas;
 
 	private GameCallback gameCallback;
+    private Intro intro;
+    public static Data data;
+
+	public static Media media;
+    private LevelList levelList;
 
 	public BikeRacing(GameCallback gameCallback) {
 		this.gameCallback = gameCallback;
@@ -70,6 +80,9 @@ public class BikeRacing extends Game {
 		sizeParams.fontParameters.size = 40;
 
 		assetManager.load("font40.ttf", BitmapFont.class, sizeParams);
+
+		media = new Media(assetManager);
+        data = new Data();
 	}
 
 	@Override
@@ -92,10 +105,65 @@ public class BikeRacing extends Game {
 	private void onAssetsLoaded() {
 		atlas = assetManager.get(path_to_atlas, TextureAtlas.class);
 		font40 = assetManager.get("font40.ttf", BitmapFont.class);
+        showIntro();
 	}
 
 
 	private void exitApp() {
 		Gdx.app.exit();
 	}
+
+    private void showIntro() {
+        intro = new Intro();
+        setScreen(intro);
+
+        intro.setCallback(new StageGame.Callback() {
+            @Override
+            public void call(int code) {
+                if (code == Intro.ON_PLAY) {
+                    showLevelList();
+                    hideIntro();
+                } else if (code == Intro.ON_BACK) {
+                    exitApp();
+                }
+            }
+        });
+
+        media.playMusic("music1.ogg", true);
+    }
+    private void hideIntro() {
+        intro = null;
+    }
+
+    private void showLevelList() {
+        levelList = new LevelList();
+        setScreen(levelList);
+
+        levelList.setCallback(new StageGame.Callback() {
+            @Override
+            public void call(int code) {
+
+                if (code == LevelList.ON_BACK) {
+                    showIntro();
+                    hideLevelList();
+                } else if (code == LevelList.ON_LEVEL_SELECTED) {
+                    //showLevel();
+                    hideLevelList();
+                } else if(code == LevelList.ON_OPEN_MARKET) {
+                    gameCallback.sendMessage(OPEN_MARKET);
+                } else if (code == LevelList.ON_SHARE) {
+                    gameCallback.sendMessage(SHARE);
+                }
+
+            }
+        });
+
+        gameCallback.sendMessage(SHOW_BANNER);
+        media.playMusic("music1.ogg", true);
+    }
+
+    private void hideLevelList() {
+        levelList = null;
+        gameCallback.sendMessage(HIDE_BANNER);
+    }
 }
