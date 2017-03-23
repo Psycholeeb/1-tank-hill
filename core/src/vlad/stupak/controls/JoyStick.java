@@ -8,7 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import vlad.stupak.BikeRacing;
+import vlad.stupak.TankHill;
 
 public class JoyStick extends Group{
 
@@ -20,7 +20,7 @@ public class JoyStick extends Group{
 
 
     public JoyStick(float minHeight) {
-        idle = new Image(BikeRacing.atlas.findRegion("joystick"));
+        idle = new Image(TankHill.atlas.findRegion("joystick"));
         addActor(idle);
 
         float scale = 1;
@@ -33,10 +33,10 @@ public class JoyStick extends Group{
 
         setSize(idle.getWidth(), idle.getHeight());
 
-        right = new Image(BikeRacing.atlas.findRegion("joystick_right"));
+        right = new Image(TankHill.atlas.findRegion("joystick_right"));
         right.setSize(getWidth(), getHeight());
         addActor(right);
-        left = new Image(BikeRacing.atlas.findRegion("joystick_left"));
+        left = new Image(TankHill.atlas.findRegion("joystick_left"));
         left.setSize(getWidth(), getHeight());
         addActor(left);
 

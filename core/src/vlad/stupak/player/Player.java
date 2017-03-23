@@ -21,7 +21,7 @@ import com.boontaran.marchingSquare.MarchingSquare;
 
 import java.util.ArrayList;
 
-import vlad.stupak.BikeRacing;
+import vlad.stupak.TankHill;
 import vlad.stupak.Setting;
 import vlad.stupak.levels.Level;
 import vlad.stupak.UserData;
@@ -52,13 +52,13 @@ public class Player extends ActorClip implements IBody{
     public Player(Level level) {
         this.level = level;
 
-        roverImg = new Image(BikeRacing.atlas.findRegion("rover"));
+        roverImg = new Image(TankHill.atlas.findRegion("rover"));
         childs.addActor(roverImg);
         roverImg.setX(-roverImg.getWidth()/2);
 
         roverImg.setY(-15);
 
-        astronautImg = new Image(BikeRacing.atlas.findRegion("astronaut"));
+        astronautImg = new Image(TankHill.atlas.findRegion("astronaut"));
         childs.addActor(astronautImg);
 
         astronautImg.setX(-35);
@@ -66,7 +66,7 @@ public class Player extends ActorClip implements IBody{
 
         astronautFallCont = new Group();
 
-        astronautFallImg = new Image(BikeRacing.atlas.findRegion("astronaut_fall"));
+        astronautFallImg = new Image(TankHill.atlas.findRegion("astronaut_fall"));
         astronautFallCont.addActor(astronautFallImg);
 
         astronautFallImg.setX(-astronautFallImg.getWidth()/2);
@@ -92,7 +92,7 @@ public class Player extends ActorClip implements IBody{
         def.linearDamping = 0;
 
         frontWheelCont = new Group();
-        frontWheelImage = new Image(BikeRacing.atlas.findRegion("front_wheel"));
+        frontWheelImage = new Image(TankHill.atlas.findRegion("front_wheel"));
 
         frontWheelCont.addActor(frontWheelImage);
         frontWheelImage.setX(-frontWheelImage.getWidth()/2);
@@ -110,7 +110,7 @@ public class Player extends ActorClip implements IBody{
 
 
         rearWheelCont = new Group();
-        rearWheelImg = new Image(BikeRacing.atlas.findRegion("rear_wheel"));
+        rearWheelImg = new Image(TankHill.atlas.findRegion("rear_wheel"));
         rearWheelCont.addActor(rearWheelImg);
         rearWheelImg.setX(-rearWheelImg.getWidth()/2);
         rearWheelImg.setY(-rearWheelImg.getHeight()/2);
@@ -155,8 +155,8 @@ public class Player extends ActorClip implements IBody{
 
     private float[] traceOutline(String regionName) {
 
-        Texture bodyOutLine = BikeRacing.atlas.findRegion(regionName).getTexture();
-        TextureAtlas.AtlasRegion reg = BikeRacing.atlas.findRegion(regionName);
+        Texture bodyOutLine = TankHill.atlas.findRegion(regionName).getTexture();
+        TextureAtlas.AtlasRegion reg = TankHill.atlas.findRegion(regionName);
         int w = reg.getRegionWidth();
         int h = reg.getRegionHeight();
         int x = reg.getRegionX();

@@ -22,7 +22,7 @@ import vlad.stupak.screens.Intro;
 import vlad.stupak.screens.LevelList;
 import vlad.stupak.utils.Data;
 
-public class BikeRacing extends Game {
+public class TankHill extends Game {
 	public static final int SHOW_BANNER = 1;
 	public static final int HIDE_BANNER = 2;
 	public static final int LOAD_INTERSTITIAL = 3;
@@ -46,7 +46,7 @@ public class BikeRacing extends Game {
 	public static Media media;
     private LevelList levelList;
 
-	public BikeRacing(GameCallback gameCallback) {
+	public TankHill(GameCallback gameCallback) {
 		this.gameCallback = gameCallback;
 	}
 

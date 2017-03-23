@@ -33,7 +33,7 @@ public class AndroidLauncher extends AndroidApplication {
 		mainView = new RelativeLayout(this);
 		setContentView(mainView);
 
-		View gameView = initializeForView(new BikeRacing(gameCallback));
+		View gameView = initializeForView(new TankHill(gameCallback));
 		mainView.addView(gameView);
 
 		bannerParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
@@ -49,35 +49,35 @@ public class AndroidLauncher extends AndroidApplication {
 		@Override
 		public void sendMessage(int message) {
 
-			if (message == BikeRacing.SHOW_BANNER) {
+			if (message == TankHill.SHOW_BANNER) {
 				AndroidLauncher.this.runOnUiThread(new Runnable() {
 					@Override
 					public void run() {
 					}
 				});
-			} else if (message == BikeRacing.HIDE_BANNER) {
+			} else if (message == TankHill.HIDE_BANNER) {
 				AndroidLauncher.this.runOnUiThread(new Runnable() {
 					@Override
 					public void run() {
 					}
 				});
-			} else if (message == BikeRacing.LOAD_INTERSTITIAL) {
+			} else if (message == TankHill.LOAD_INTERSTITIAL) {
 
 
-			} else if (message == BikeRacing.SHOW_INTERSTITIAL) {
+			} else if (message == TankHill.SHOW_INTERSTITIAL) {
 				AndroidLauncher.this.runOnUiThread(new Runnable() {
 					@Override
 					public void run() {
 
 					}
 				});
-			} else if (message == BikeRacing.OPEN_MARKET) {
+			} else if (message == TankHill.OPEN_MARKET) {
 				Uri uri = Uri.parse(getString(R.string.share_url));
 				Intent intent = new Intent(Intent.ACTION_VIEW, uri);
 				startActivity(intent);
 
 
-			} else if (message == BikeRacing.SHARE) {
+			} else if (message == TankHill.SHARE) {
 				Intent sharingIntent = new Intent(Intent.ACTION_SEND);
 				sharingIntent.setType("text/plain");
 				String shareTitle = getString(R.string.share_title);

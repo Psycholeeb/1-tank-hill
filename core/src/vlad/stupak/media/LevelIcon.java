@@ -10,7 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
-import vlad.stupak.BikeRacing;
+import vlad.stupak.TankHill;
 
 public class LevelIcon extends Group{
     private int id;
@@ -22,30 +22,30 @@ public class LevelIcon extends Group{
     public LevelIcon(int id) {
         this.id = id;
 
-        hiliteImg = new Image(BikeRacing.atlas.findRegion("level_icon_hilite"));
+        hiliteImg = new Image(TankHill.atlas.findRegion("level_icon_hilite"));
         addActor(hiliteImg);
         hiliteImg.setVisible(false);
 
-        bg = new Image(BikeRacing.atlas.findRegion("level_icon_bg"));
+        bg = new Image(TankHill.atlas.findRegion("level_icon_bg"));
         addActor(bg);
         setSize(bg.getWidth(), bg.getHeight());
 
         hiliteImg.setX((getWidth()-hiliteImg.getWidth())/2);
         hiliteImg.setY((getHeight()-hiliteImg.getHeight())/2);
 
-        bgDown = new Image(BikeRacing.atlas.findRegion("level_icon_bg_down"));
+        bgDown = new Image(TankHill.atlas.findRegion("level_icon_bg_down"));
         addActor(bgDown);
 
         bgDown.setX(bg.getX() + (bg.getWidth()-bgDown.getWidth())/2);
         bgDown.setY(bg.getY() + (bg.getHeight()-bgDown.getHeight())/2);
         bgDown.setVisible(false);
 
-        lockImg = new Image(BikeRacing.atlas.findRegion("level_icon_lock"));
+        lockImg = new Image(TankHill.atlas.findRegion("level_icon_lock"));
         lockImg.setX((getWidth()-lockImg.getWidth())/2);
         lockImg.setY((getHeight()-lockImg.getHeight())/2);
 
         Label.LabelStyle style = new Label.LabelStyle();
-        style.font = BikeRacing.font40;
+        style.font = TankHill.font40;
         style.fontColor = new Color(0x000000ff);
 
         label = new Label(id + "", style);
