@@ -24,7 +24,6 @@ import java.util.ArrayList;
 import vlad.stupak.TankHill;
 import vlad.stupak.Setting;
 import vlad.stupak.levels.Level;
-import vlad.stupak.UserData;
 
 public class Player extends ActorClip implements IBody{
 
