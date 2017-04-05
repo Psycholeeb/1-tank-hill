@@ -1,5 +1,6 @@
 package vlad.stupak.player;
 
+
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -13,9 +14,11 @@ import com.badlogic.gdx.physics.box2d.Joint;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.physics.box2d.joints.RevoluteJointDef;
+import com.badlogic.gdx.physics.box2d.joints.WeldJointDef;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.Array;
+import com.boontaran.douglasPeucker.DouglasPeucker;
 import com.boontaran.games.ActorClip;
 import com.boontaran.marchingSquare.MarchingSquare;
 
@@ -90,6 +93,25 @@ public class Player extends ActorClip implements IBody{
         def.type = BodyDef.BodyType.DynamicBody;
         def.linearDamping = 0;
 
+        float[] vertices = traceOutline("rover_model");
+        Vector2 centroid = Level.calculateCentroid(vertices);
+
+        int i = 0;
+        while (i < vertices.length) {
+            vertices[i] -= centroid.x;
+            vertices[i + 1] -= centroid.y;
+            i += 2;
+        }
+
+        vertices = DouglasPeucker.simplify(vertices, 4);
+        Level.scaleToWorld(vertices);
+        Array<Polygon> triangles = Level.getTriangles(new Polygon(vertices));
+        rover = createBodyFromTriangles(world, triangles);
+        rover.setTransform((getX()) / Level.WORLD_SCALE, (getY()) / Level.WORLD_SCALE, 0);
+
+        frontWheel = createWheel(world, 20 / Level.WORLD_SCALE);
+        frontWheel.setTransform(rover.getPosition().x + 60 / Level.WORLD_SCALE, rover.getPosition().y - 8 / Level.WORLD_SCALE, 0);
+
         frontWheelCont = new Group();
         frontWheelImage = new Image(TankHill.atlas.findRegion("front_wheel"));
 
@@ -108,6 +130,11 @@ public class Player extends ActorClip implements IBody{
         frontWheelJoint = world.createJoint(rDef);
 
 
+        rearWheel = createWheel(world, 20 / Level.WORLD_SCALE);
+        rearWheel.setTransform(rover.getPosition().x - 62 / Level.WORLD_SCALE, rover.getPosition().y - 8 / Level.WORLD_SCALE, 0);
+        rDef = new RevoluteJointDef();
+
+
         rearWheelCont = new Group();
         rearWheelImg = new Image(TankHill.atlas.findRegion("rear_wheel"));
         rearWheelCont.addActor(rearWheelImg);
@@ -122,6 +149,27 @@ public class Player extends ActorClip implements IBody{
         rDef.initialize(rover, rearWheel, new Vector2(rearWheel.getPosition()));
         rearWheelJoint = world.createJoint(rDef);
 
+        vertices = traceOutline("astronaut_model");
+        centroid = Level.calculateCentroid(vertices);
+
+        i = 0;
+        while (i < vertices.length) {
+            vertices[i] -= centroid.x;
+            vertices[i + 1] -= centroid.y;
+
+            i+= 2;
+        }
+        vertices = DouglasPeucker.simplify(vertices, 6);
+        Level.scaleToWorld(vertices);
+        triangles = Level.getTriangles(new Polygon(vertices));
+        astronaut = createBodyFromTriangles(world, triangles);
+        astronaut.setTransform(rover.getPosition().x - 0 / Level.WORLD_SCALE, rover.getPosition().y + 30/ Level.WORLD_SCALE, 0);
+
+        WeldJointDef actronautDef = new WeldJointDef();
+        actronautDef.initialize(rover, astronaut, new Vector2(astronaut.getPosition()));
+        astroJoint = world.createJoint(actronautDef);
+
+
 
 
         return rover;
@@ -131,21 +179,21 @@ public class Player extends ActorClip implements IBody{
 
         BodyDef def = new BodyDef();
         def.type = BodyDef.BodyType.DynamicBody;
-        def.linearDamping = 0;                                  //линейное затухание скорости
-        def.angularDamping = 1f;                                //угловое затухание
+        def.linearDamping = 0;
+        def.angularDamping = 1f;
 
-        Body body = world.createBody(def);                      //создает тело
+        Body body = world.createBody(def);
 
-        FixtureDef fDef = new FixtureDef();                     //конструкция с набором физ свойств
-        CircleShape shape = new CircleShape();                  //форма конструкции
+        FixtureDef fDef = new FixtureDef();
+        CircleShape shape = new CircleShape();
         shape.setRadius(rad);
 
         fDef.shape = shape;
-        fDef.restitution = 0.5f;                                //эластичность
-        fDef.friction = 0.4f;                                   //трение
-        fDef.density = 1;                                       //плотность в кг/м^2
+        fDef.restitution = 0.5f;
+        fDef.friction = 0.4f;
+        fDef.density = 1;
 
-        body.createFixture(fDef);                               //создает конструкцию и крепит к телу
+        body.createFixture(fDef);
         shape.dispose();
 
 

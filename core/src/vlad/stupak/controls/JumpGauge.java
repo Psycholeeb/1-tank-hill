@@ -40,7 +40,7 @@ public class JumpGauge  extends Group{
 
         }
 
-        patch = new NinePatch(TankHill.atlas.findRegion("jump_gauge-on"), 3, 3, 3, 3);
+        patch = new NinePatch(TankHill.atlas.findRegion("jump_gauge_on"), 3, 3, 3, 3);
 
         for (i = 0; i < 5; i++) {
             w = (i+3)*4;

@@ -1,5 +1,6 @@
 package vlad.stupak.levels;
 
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
@@ -9,6 +10,7 @@ import com.badlogic.gdx.maps.objects.PolygonMapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.math.EarClippingTriangulator;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -28,6 +30,8 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.ShortArray;
+import com.boontaran.MessageListener;
 import com.boontaran.games.StageGame;
 import com.boontaran.games.tiled.TileLayer;
 
@@ -39,6 +43,9 @@ import vlad.stupak.controls.JumpGauge;
 import vlad.stupak.player.IBody;
 import vlad.stupak.player.Player;
 import vlad.stupak.player.UserData;
+import vlad.stupak.screens.LevelCompletedScreen;
+import vlad.stupak.screens.LevelFailedScreen;
+import vlad.stupak.screens.PausedScreen;
 
 public class Level extends StageGame{
     private String directory;
@@ -86,6 +93,10 @@ public class Level extends StageGame{
 
     private TiledMap map;
 
+    private LevelCompletedScreen levelCompletedScreen;
+    private LevelFailedScreen levelFailedScreen;
+    private PausedScreen pausedScreen;
+
     public Level(String directory) {
         this.directory = directory;
 
@@ -100,6 +111,8 @@ public class Level extends StageGame{
     protected void onDelayCall(String code) {
         if (code.equals("build_level")) {
             build();
+
+            removeOverlayChild(pleaseWait);
 
         } else if (code.equals("resumeLevel2")) {
             resumeLevel2();
@@ -121,7 +134,7 @@ public class Level extends StageGame{
         world.setContactListener(contactListener);
         debugRenderer = new Box2DDebugRenderer();
 
-        //loadMap();
+        loadMap("tiled/" + directory + "/level.tmx");
 
         if (player == null) {
             throw new Error("player not defined");
@@ -130,7 +143,8 @@ public class Level extends StageGame{
             throw new Error("finish not defined");
         }
 
-        //addRectangleLand();
+        addRectangleLand(new Rectangle(-10, 0, 10, levelHeight));
+        addRectangleLand(new Rectangle(levelWidth + 10, 0, 10, levelHeight));
 
         int count = 60;
         while (count-- > 0) {
@@ -203,12 +217,60 @@ public class Level extends StageGame{
             }
         });
 
+        levelFailedScreen = new LevelFailedScreen(getWidth(), getHeight());
+        levelFailedScreen.addListener(new MessageListener() {
+            @Override
+            protected void receivedMessage(int message, Actor actor) {
+                if (message == LevelFailedScreen.ON_RETRY) {
+                    call(ON_RESTART);
+                } else if (message == LevelFailedScreen.ON_QUIT) {
+                    quitLevel();
+                }
+            }
+        });
+
+        levelCompletedScreen = new LevelCompletedScreen(getWidth(), getHeight());
+        levelCompletedScreen.addListener(new MessageListener() {
+            @Override
+            protected void receivedMessage(int message, Actor actor) {
+                if (message == LevelCompletedScreen.ON_DONE) {
+                    call(ON_COMPLETED);
+                }
+            }
+        });
+
+        pausedScreen = new PausedScreen(getWidth(), getHeight());
+        pausedScreen.addListener(new MessageListener() {
+            @Override
+            protected void receivedMessage(int message, Actor actor) {
+                if (message == PausedScreen.ON_RESUME) {
+                    TankHill.media.playSound("click.ogg");
+                    resumelevel();
+                } else if (message == PausedScreen.ON_QUIT) {
+                    TankHill.media.playSound("click.ogg");
+                    quitLevel();
+                }
+            }
+        });
+
+
         setBackGround("level_bg");
 
         world.getBodies(bodies);
 
         updateCamera();
 
+    }
+
+    private void resumelevel() {
+        state = PLAY;
+
+        pausedScreen.hide();
+        delayCall("resumelevel2", 0.6f);
+        showButtons();
+        call(ON_RESUME);
+
+        playMusic();
     }
 
     protected void quitLevel() {
@@ -481,22 +543,115 @@ public class Level extends StageGame{
         shape.dispose();
     }
 
-    private void addPolygonLand(Array<Polygon> childs) {
+    private void addPolygonLand(Array<Polygon> triangles) {
+        BodyDef def = new BodyDef();
+        def.type = BodyType.StaticBody;
+        def.linearDamping = 0;
+
+        for (Polygon poly : triangles) {
+            FixtureDef fDef = new FixtureDef();
+            PolygonShape shape = new PolygonShape();
+            shape.set(poly.getTransformedVertices());
+
+            fDef.shape = shape;
+            fDef.restitution = LAND_RESTITUTION;
+            fDef.friction = 1;
+            fDef.density = 1;
+
+            Body body = world.createBody(def);
+            body.createFixture(fDef);
+            body.setUserData(new UserData(null, "land"));
+            shape.dispose();
+        }
     }
 
-    private Array<Polygon> getTriangles(Polygon polygon) {
+    public static Array<Polygon> getTriangles(Polygon polygon) {
+        Array<Polygon> trianglesPoly = new Array<Polygon>();
 
-        return null;
+        EarClippingTriangulator ear = new EarClippingTriangulator();
+        float vertices[] = polygon.getTransformedVertices();
+        ShortArray triangleIds = ear.computeTriangles(vertices);
+        Vector2 list[] = fromArray(vertices);
+
+        Polygon triangle;
+
+        int num = triangleIds.size/3;
+        Vector2 triPoints[];
+        int i, j;
+
+        for (i = 0; i < num; i++) {
+            triPoints = new Vector2[3];
+            for (j = 0; j < 3; j++) {
+                triPoints[j] = list[triangleIds.get(i * 3 + j)];
+            }
+            triangle = new Polygon(toArray(triPoints));
+
+            if (Math.abs(triangle.area()) > 0.001f) {
+                trianglesPoly.add(triangle);
+            }
+        }
+        return trianglesPoly;
+
     }
 
-    private void scaleToWorld(Polygon polygon) {
+    public static Vector2[] fromArray(float vertices[]) {
+        int num = vertices.length/2;
+        int i;
+        Vector2 result[] = new Vector2[num];
+
+        for (i = 0; i < num; i++) {
+            result[i] = new Vector2(vertices[2 * i], vertices[2 * i + 1]);
+        }
+        return result;
+    }
+
+    public static float[] toArray(Vector2[] points) {
+        float vertices[] = new float[points.length * 2];
+        int i;
+
+        for (i = 0; i < points.length; i++) {
+            vertices[i * 2] = points[i].x;
+            vertices[i * 2 + 1] = points[i].y;
+
+        }
+        return vertices;
+    }
+
+    public static void scaleToWorld(Polygon polygon) {
+        float[] vertices = polygon.getTransformedVertices();
+        scaleToWorld(vertices);
+    }
+
+    public static void scaleToWorld(float[] vertices) {
+        int i;
+
+        for (i = 0; i < vertices.length; i++) {
+            vertices[i] /= WORLD_SCALE;
+        }
     }
 
 
     private void resumeLevel2() {
+        removeOverlayChild(pausedScreen);
     }
 
     private void updateCamera() {
+        camera.position.x = player.getX();
+        camera.position.y = player.getY();
+
+        if (camera.position.x - camera.viewportWidth/2 < 0) {
+            camera.position.x = camera.viewportWidth/2;
+        }
+        if (camera.position.x + camera.viewportWidth/2 > levelWidth) {
+            camera.position.x = levelWidth - camera.viewportWidth/2;
+        }
+        if (camera.position.y - camera.viewportHeight/2 < 0) {
+            camera.position.y = camera.viewportHeight/2;
+        }
+        if (camera.position.y + camera.viewportHeight/2 > levelHeight) {
+            camera.position.y = levelHeight - camera.viewportHeight/2;
+        }
+
     }
 
     public void addChild(Actor actor) {
@@ -530,9 +685,167 @@ public class Level extends StageGame{
     }
 
     private void levelCompleted() {
+        if (state == LEVEL_COMPLETED) return;
+        state = LEVEL_COMPLETED;
+
+        stopMusic();
+
+        hideButtons();
+
+        addOverlayChild(levelCompletedScreen);
+        levelCompletedScreen.start();
+
+        TankHill.media.playSound("level_completed.ogg");
+        TankHill.media.playMusic("level_win.ogg", false);
     }
 
     private void levelFailed() {
+        if (state == LEVEL_FAILED) return;
+        state = LEVEL_FAILED;
+        stopMusic();
+
+        addOverlayChild(levelFailedScreen);
+        levelFailedScreen.start();
+
+        jumpGauge.setVisible(false);
+        hideButtons();
+
+        call(ON_FAILED);
     }
 
+    private void pauseLevel() {
+        pauseLevel(true);
+    }
+
+    private void pauseLevel(boolean withDialog) {
+        if (state != PLAY) return;
+        state = PAUSED;
+
+        if (withDialog) {
+            addOverlayChild(pausedScreen);
+            pausedScreen.start();
+            hideButtons();
+        }
+
+        call(ON_PAUSED);
+        stopMusic();
+    }
+
+    @Override
+    public void pause() {
+
+        if (hasBeenBuilt && state == PLAY) {
+            pauseLevel();
+        }
+
+        super.pause();
+    }
+
+    @Override
+    public void resume() {
+        super.resume();
+    }
+
+    private void updateWorld(float delta) {
+        if (player.getRight() < levelWidth - 100) {
+            world.step(delta, 10, 10);
+        }
+
+        int i;
+        Body body;
+        UserData data;
+        for (i = 0; i < bodies.size; i++) {
+            body = bodies.get(i);
+
+            data = (UserData) body.getUserData();
+
+            if (data != null) {
+                Actor actor = data.actor;
+
+                if (actor != null) {
+                    actor.setPosition(body.getPosition().x * WORLD_SCALE, body.getPosition().y * WORLD_SCALE);
+                    actor.setRotation(body.getAngle() * 180/3.14f);
+                }
+            }
+        }
+    }
+
+    @Override
+    protected void update(float delta) {
+        super.update(delta);
+
+        if (musicName != null && !musicHasLoaded) {
+            if (TankHill.media.update()) {
+                musicHasLoaded = true;
+                playMusic();
+            }
+        }
+        if (!hasBeenBuilt) {
+            return;
+        }
+
+        boolean lFront = joyStick.isRight();
+        boolean lBack = joyStick.isLeft();
+
+        if (state == PLAY) {
+
+            player.onKey(lFront, lBack);
+
+            jumpGauge.setX(getStageToOverlayX(player.getX()));
+            jumpGauge.setY(getStageToOverlayY(player.getY() + 67));
+
+            updateCamera();
+
+            if (player.getY() < -100) {
+                levelFailed();
+            }
+
+        }
+
+        if (state != PAUSED) {
+            float delta2 = 0.033f;
+            if (delta < delta2)
+                delta2 = delta;
+
+            updateWorld(delta2);
+        }
+    }
+
+    @Override
+    public void render(float delta) {
+        super.render(delta);
+
+        if (Setting.DEBUG_WORLD) {
+            if (hasBeenBuilt) {
+                debugRenderer.render(world, camera.combined.cpy().scl(WORLD_SCALE));
+            }
+        }
+    }
+
+    public static Vector2 calculateCentroid(float vertices[]) {
+        Vector2[] points = fromArray(vertices);
+        float x = 0;
+        float y = 0;
+        int pointCount = points.length;
+        for (int i = 0; i < pointCount - 1; i++) {
+            final  Vector2 point = points[i];
+            x += point.x;
+            y += point.y;
+        }
+
+        x = x/pointCount;
+        y = y/pointCount - 33;
+
+        return new Vector2(x, y);
+    }
+
+    @Override
+    public boolean keyUp(int keycode) {
+        if (keycode == Input.Keys.ESCAPE || keycode == Input.Keys.BACK) {
+            TankHill.media.playSound("click.ogg");
+            pauseLevel();
+        }
+
+        return super.keyUp(keycode);
+    }
 }

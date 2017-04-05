@@ -17,12 +17,14 @@ import com.boontaran.games.StageGame;
 
 import java.util.Locale;
 
+import vlad.stupak.levels.Level;
+import vlad.stupak.screens.LevelList;
 import vlad.stupak.media.Media;
 import vlad.stupak.screens.Intro;
-import vlad.stupak.screens.LevelList;
 import vlad.stupak.utils.Data;
 
 public class TankHill extends Game {
+
 	public static final int SHOW_BANNER = 1;
 	public static final int HIDE_BANNER = 2;
 	public static final int LOAD_INTERSTITIAL = 3;
@@ -40,11 +42,17 @@ public class TankHill extends Game {
 	private String path_to_atlas;
 
 	private GameCallback gameCallback;
-    private Intro intro;
-    public static Data data;
 
 	public static Media media;
-    private LevelList levelList;
+
+	private Intro intro;
+
+	public static Data data;
+
+	private LevelList levelList;
+	private Level level;
+	private int lastLevelId;
+
 
 	public TankHill(GameCallback gameCallback) {
 		this.gameCallback = gameCallback;
@@ -59,6 +67,7 @@ public class TankHill extends Game {
 		Locale locale = Locale.getDefault();
 		bundle = I18NBundle.createBundle(Gdx.files.internal("MyBundle"), locale);
 		path_to_atlas = bundle.get("path");
+
 
 		loadingAssets = true;
 		assetManager = new AssetManager();
@@ -82,7 +91,7 @@ public class TankHill extends Game {
 		assetManager.load("font40.ttf", BitmapFont.class, sizeParams);
 
 		media = new Media(assetManager);
-        data = new Data();
+		data = new Data();
 	}
 
 	@Override
@@ -105,7 +114,8 @@ public class TankHill extends Game {
 	private void onAssetsLoaded() {
 		atlas = assetManager.get(path_to_atlas, TextureAtlas.class);
 		font40 = assetManager.get("font40.ttf", BitmapFont.class);
-        showIntro();
+
+		showIntro();
 	}
 
 
@@ -113,57 +123,133 @@ public class TankHill extends Game {
 		Gdx.app.exit();
 	}
 
-    private void showIntro() {
-        intro = new Intro();
-        setScreen(intro);
 
-        intro.setCallback(new StageGame.Callback() {
-            @Override
-            public void call(int code) {
-                if (code == Intro.ON_PLAY) {
-                    showLevelList();
-                    hideIntro();
-                } else if (code == Intro.ON_BACK) {
-                    exitApp();
-                }
-            }
-        });
+	private void showIntro() {
+		intro = new Intro();
+		setScreen(intro);
 
-        media.playMusic("music1.ogg", true);
-    }
-    private void hideIntro() {
-        intro = null;
-    }
+		intro.setCallback(new StageGame.Callback() {
+			@Override
+			public void call(int code) {
+				if (code == Intro.ON_PLAY) {
+					showLevelList();
+					hideIntro();
+				} else if (code == Intro.ON_BACK) {
+					exitApp();
+				}
+			}
+		});
 
-    private void showLevelList() {
-        levelList = new LevelList();
-        setScreen(levelList);
+		media.playMusic("music1.ogg", true);
+	}
+	private void hideIntro() {
+		intro = null;
+	}
 
-        levelList.setCallback(new StageGame.Callback() {
-            @Override
-            public void call(int code) {
+	private void showLevelList() {
+		levelList = new LevelList();
+		setScreen(levelList);
 
-                if (code == LevelList.ON_BACK) {
-                    showIntro();
-                    hideLevelList();
-                } else if (code == LevelList.ON_LEVEL_SELECTED) {
-                    //showLevel();
-                    hideLevelList();
-                } else if(code == LevelList.ON_OPEN_MARKET) {
-                    gameCallback.sendMessage(OPEN_MARKET);
-                } else if (code == LevelList.ON_SHARE) {
-                    gameCallback.sendMessage(SHARE);
-                }
+		levelList.setCallback(new StageGame.Callback() {
+			@Override
+			public void call(int code) {
 
-            }
-        });
+				if (code == LevelList.ON_BACK) {
+					showIntro();
+					hideLevelList();
+				} else if (code == LevelList.ON_LEVEL_SELECTED) {
+					showLevel(levelList.getSelectedLevelId());
+					hideLevelList();
+				} else if(code == LevelList.ON_OPEN_MARKET) {
+					gameCallback.sendMessage(OPEN_MARKET);
+				} else if (code == LevelList.ON_SHARE) {
+					gameCallback.sendMessage(SHARE);
+				}
 
-        gameCallback.sendMessage(SHOW_BANNER);
-        media.playMusic("music1.ogg", true);
-    }
+			}
+		});
 
-    private void hideLevelList() {
-        levelList = null;
-        gameCallback.sendMessage(HIDE_BANNER);
-    }
+		gameCallback.sendMessage(SHOW_BANNER);
+		media.playMusic("music1.ogg", true);
+	}
+
+	private void hideLevelList() {
+		levelList = null;
+		gameCallback.sendMessage(HIDE_BANNER);
+	}
+
+	private void showLevel(int id) {
+		media.stopMusic("music1.ogg");
+
+		lastLevelId = id;
+		switch (id) {
+			case 1:
+				level = new Level("level1");
+				break;
+			case 2:
+				level = new Level("level2");
+				break;
+			default:
+				level = new Level("level" + id);
+				break;
+		}
+
+		if (level.getMusicName() == null) {
+			level.setMusic("music2.ogg");
+		}
+
+		setScreen(level);
+
+		level.setCallback(new StageGame.Callback() {
+			@Override
+			public void call(int code) {
+				if (code == Level.ON_RESTART) {
+					gameCallback.sendMessage(HIDE_BANNER);
+					gameCallback.sendMessage(SHOW_INTERSTITIAL);
+					media.stopMusic("level_failed.ogg");
+					media.stopMusic("level_win.ogg");
+					hideLevel();
+					showLevel(lastLevelId);
+				} else if (code == Level.ON_QUIT) {
+					gameCallback.sendMessage(SHOW_INTERSTITIAL);
+					media.stopMusic("level_failed.ogg");
+					media.stopMusic("level_win.ogg");
+					hideLevel();
+					showLevelList();
+				} else if (code == Level.ON_COMPLETED) {
+					updateProgress();
+					gameCallback.sendMessage(SHOW_INTERSTITIAL);
+					gameCallback.sendMessage(SHOW_BANNER);
+					media.stopMusic("level_win.ogg");
+					hideLevel();
+					showLevelList();
+				} else if (code == Level.ON_PAUSED) {
+					gameCallback.sendMessage(SHOW_BANNER);
+
+				} else if (code == Level.ON_RESUME) {
+					gameCallback.sendMessage(HIDE_BANNER);
+
+				} else if (code == Level.ON_FAILED) {
+					gameCallback.sendMessage(SHOW_BANNER);
+					media.playMusic("level_failed.ogg", false);
+				}
+			}
+		});
+
+		gameCallback.sendMessage(LOAD_INTERSTITIAL);
+	}
+
+	private void hideLevel() {
+		level.dispose();
+		level = null;
+	}
+
+	protected void updateProgress() {
+		int newProgress = lastLevelId + 1;
+		if (newProgress > data.getProgress()) {
+			data.setProgress(newProgress);
+		}
+	}
+
+
 }
