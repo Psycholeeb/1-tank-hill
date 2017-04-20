@@ -12,7 +12,7 @@ import com.boontaran.games.StageGame;
 
 import vlad.stupak.TankHill;
 import vlad.stupak.Setting;
-import vlad.stupak.media.LevelIcon;
+import vlad.stupak.mediafile.LevelIcon;
 
 public class LevelList  extends StageGame {
 

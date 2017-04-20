@@ -19,7 +19,7 @@ import java.util.Locale;
 
 import vlad.stupak.levels.Level;
 import vlad.stupak.screens.LevelList;
-import vlad.stupak.media.Media;
+import vlad.stupak.mediafile.Media;
 import vlad.stupak.screens.Intro;
 import vlad.stupak.utils.Data;
 

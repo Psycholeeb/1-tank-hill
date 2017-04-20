@@ -1,4 +1,4 @@
-package vlad.stupak.media;
+package vlad.stupak.mediafile;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Event;
