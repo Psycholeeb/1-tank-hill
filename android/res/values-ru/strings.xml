@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Велогонка</string>
+    <string name="app_name">TankHill</string>
     <string name="share_url">http://play.google.com/store/apps/details?id=vlad.stupak</string>
-    <string name="share_title">Велогонка</string>
+    <string name="share_title">TankHill</string>
     <string name="share_body">Попробуй эту игру:</string>
     <string name="share_via">Поделится с помощью</string>
 </resources>

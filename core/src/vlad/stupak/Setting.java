@@ -5,11 +5,11 @@ package vlad.stupak;
  */
 
 public class Setting {
-    public static final boolean DEBUG_GAME = true;
-    public static final boolean DEBUG_WORLD = true;
+    public static final boolean DEBUG_GAME = false;
+    public static final boolean DEBUG_WORLD = false;
 
 
-    public static final float GRAVITY = 8;
+    public static final float GRAVITY = 35;  //8 гравитация
     public static final float JUMP_IMPULSE = 80;
-    public static final float WHEEL_TORQUE = 50;
+    public static final float WHEEL_TORQUE = 150;  //50 крутящий момент
 }
