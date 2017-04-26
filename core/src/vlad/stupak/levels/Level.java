@@ -304,32 +304,15 @@ public class Level extends StageGame{
             Body bodyA = contact.getFixtureA().getBody();
             Body bodyB = contact.getFixtureB().getBody();
 
-            if (bodyA == player.astronaut) {
+            if (bodyA == player.rover) {
                 playerTouch(bodyB);
                 return;
             }
-            if (bodyB == player.astronaut) {
+            if (bodyB == player.rover) {
                 playerTouch(bodyA);
                 return;
             }
-
-            if (bodyA == player.rover) {
-                UserData data = (UserData) bodyB.getUserData();
-                if (data!= null) {
-                    if (data.name.equals("land")) {
-                        player.touchGround();
-                        return;
-                    }
-                }
-            }if (bodyB == player.rover) {
-                UserData data = (UserData) bodyA.getUserData();
-                if (data!= null) {
-                    if (data.name.equals("land")) {
-                        player.touchGround();
-                        return;
-                    }
-                }
-            }if (bodyA == player.frontWheel) {
+            if (bodyA == player.frontWheel) {
                 UserData data = (UserData) bodyB.getUserData();
                 if (data!= null) {
                     if (data.name.equals("land")) {
@@ -362,12 +345,6 @@ public class Level extends StageGame{
                     }
                 }
             }
-
-
-
-
-
-
         }
 
         @Override

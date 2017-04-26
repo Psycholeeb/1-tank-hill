@@ -14,7 +14,6 @@ import com.badlogic.gdx.physics.box2d.Joint;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.physics.box2d.joints.RevoluteJointDef;
-import com.badlogic.gdx.physics.box2d.joints.WeldJointDef;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.Array;
@@ -24,19 +23,19 @@ import com.boontaran.marchingSquare.MarchingSquare;
 
 import java.util.ArrayList;
 
-import vlad.stupak.TankHill;
 import vlad.stupak.Setting;
+import vlad.stupak.TankHill;
 import vlad.stupak.levels.Level;
 
 public class Player extends ActorClip implements IBody{
 
-    private Image roverImg, astronautImg, astronautFallImg, frontWheelImage,rearWheelImg;
+    private Image roverImg, astronautImg, astronautFallImg, frontWheelImage, frontWheelImage2, rearWheelImg, rearWheelImg2;
 
-    private Group frontWheelCont, rearWheelCont, astronautFallCont;
+    private Group frontWheelCont, frontWheelCont2, rearWheelCont, rearWheelCont2, astronautFallCont;
 
-    public Body rover, frontWheel, rearWheel, astronaut;
+    public Body rover, frontWheel, frontWheel2, rearWheel, rearWheel2, astronaut;
 
-    private Joint frontWheelJoint, rearWheelJoint, astroJoint;
+    private Joint frontWheelJoint, frontWheelJoint2, rearWheelJoint, rearWheelJoint2, astroJoint;
 
     private World world;
 
@@ -58,13 +57,11 @@ public class Player extends ActorClip implements IBody{
         childs.addActor(roverImg);
         roverImg.setX(-roverImg.getWidth()/2);
 
-        roverImg.setY(-15);
-
-        astronautImg = new Image(TankHill.atlas.findRegion("astronaut"));
+        /*astronautImg = new Image(TankHill.atlas.findRegion("astronaut"));
         childs.addActor(astronautImg);
 
         astronautImg.setX(-35);
-        astronautImg.setY(20);
+        astronautImg.setY(20);*/
 
         astronautFallCont = new Group();
 
@@ -109,8 +106,10 @@ public class Player extends ActorClip implements IBody{
         rover = createBodyFromTriangles(world, triangles);
         rover.setTransform((getX()) / Level.WORLD_SCALE, (getY()) / Level.WORLD_SCALE, 0);
 
-        frontWheel = createWheel(world, 20 / Level.WORLD_SCALE);
-        frontWheel.setTransform(rover.getPosition().x + 60 / Level.WORLD_SCALE, rover.getPosition().y - 8 / Level.WORLD_SCALE, 0);
+
+        // FRONT WHEEL
+        frontWheel = createWheel(world, 18 / Level.WORLD_SCALE);
+        frontWheel.setTransform(rover.getPosition().x + 75 / Level.WORLD_SCALE, rover.getPosition().y + 1/Level.WORLD_SCALE, 0);
 
         frontWheelCont = new Group();
         frontWheelImage = new Image(TankHill.atlas.findRegion("front_wheel"));
@@ -130,8 +129,30 @@ public class Player extends ActorClip implements IBody{
         frontWheelJoint = world.createJoint(rDef);
 
 
-        rearWheel = createWheel(world, 20 / Level.WORLD_SCALE);
-        rearWheel.setTransform(rover.getPosition().x - 62 / Level.WORLD_SCALE, rover.getPosition().y - 8 / Level.WORLD_SCALE, 0);
+        //FRONT WHEEL 2
+        frontWheel2 = createWheel(world, 18 / Level.WORLD_SCALE);
+        frontWheel2.setTransform(rover.getPosition().x + 27 / Level.WORLD_SCALE, rover.getPosition().y + 1/Level.WORLD_SCALE, 0);
+
+        frontWheelCont2 = new Group();
+        frontWheelImage2 = new Image(TankHill.atlas.findRegion("front_wheel"));
+
+        frontWheelCont2.addActor(frontWheelImage2);
+        frontWheelImage2.setX(-frontWheelImage2.getWidth()/2);
+        frontWheelImage2.setY(-frontWheelImage2.getHeight()/2);
+
+        getParent().addActor(frontWheelCont2);
+
+        data = new UserData();
+        data.actor = frontWheelCont2;
+        frontWheel2.setUserData(data);
+
+        rDef.initialize(rover, frontWheel2, new Vector2(frontWheel2.getPosition()));
+        frontWheelJoint2 = world.createJoint(rDef);
+
+
+        // REAR WHEEL
+        rearWheel = createWheel(world, 18 / Level.WORLD_SCALE);
+        rearWheel.setTransform(rover.getPosition().x - 83 / Level.WORLD_SCALE, rover.getPosition().y + 1/Level.WORLD_SCALE, 0);
         rDef = new RevoluteJointDef();
 
 
@@ -149,7 +170,28 @@ public class Player extends ActorClip implements IBody{
         rDef.initialize(rover, rearWheel, new Vector2(rearWheel.getPosition()));
         rearWheelJoint = world.createJoint(rDef);
 
-        vertices = traceOutline("astronaut_model");
+
+        // REAR WHEEL 2
+        rearWheel2 = createWheel(world, 18 / Level.WORLD_SCALE);
+        rearWheel2.setTransform(rover.getPosition().x - 35 / Level.WORLD_SCALE, rover.getPosition().y + 1/Level.WORLD_SCALE, 0);
+        rDef = new RevoluteJointDef();
+
+
+        rearWheelCont2 = new Group();
+        rearWheelImg2 = new Image(TankHill.atlas.findRegion("rear_wheel"));
+        rearWheelCont2.addActor(rearWheelImg2);
+        rearWheelImg2.setX(-rearWheelImg2.getWidth()/2);
+        rearWheelImg2.setY(-rearWheelImg2.getHeight()/2);
+
+        getParent().addActor(rearWheelCont2);
+        data = new UserData();
+        data.actor = rearWheelCont2;
+        rearWheel2.setUserData(data);
+
+        rDef.initialize(rover, rearWheel2, new Vector2(rearWheel2.getPosition()));
+        rearWheelJoint2 = world.createJoint(rDef);
+
+        /*vertices = traceOutline("astronaut_model");
         centroid = Level.calculateCentroid(vertices);
 
         i = 0;
@@ -167,7 +209,7 @@ public class Player extends ActorClip implements IBody{
 
         WeldJointDef actronautDef = new WeldJointDef();
         actronautDef.initialize(rover, astronaut, new Vector2(astronaut.getPosition()));
-        astroJoint = world.createJoint(actronautDef);
+        astroJoint = world.createJoint(actronautDef);*/
 
 
 
@@ -189,9 +231,9 @@ public class Player extends ActorClip implements IBody{
         shape.setRadius(rad);
 
         fDef.shape = shape;
-        fDef.restitution = 0.5f;
-        fDef.friction = 0.4f;
-        fDef.density = 1;
+        fDef.restitution = 0.5f;  //0.5f
+        fDef.friction = 0.9f;  //0.4f
+        fDef.density = 1;  //1
 
         body.createFixture(fDef);
         shape.dispose();
@@ -278,12 +320,28 @@ public class Player extends ActorClip implements IBody{
                 frontWheel.applyTorque(-torque, true);
             }
         }
+        if (moveFrontKey) {
+            if (-rearWheel2.getAngularVelocity() < maxAV) {
+                rearWheel2.applyTorque(-torque, true);
+            }
+            if (-frontWheel2.getAngularVelocity() < maxAV) {
+                frontWheel2.applyTorque(-torque, true);
+            }
+        }
         if (moveBackKey) {
             if (rearWheel.getAngularVelocity() < maxAV) {
                 rearWheel.applyTorque(torque, true);
             }
             if (frontWheel.getAngularVelocity() < maxAV) {
                 frontWheel.applyTorque(torque, true);
+            }
+        }
+        if (moveBackKey) {
+            if (rearWheel2.getAngularVelocity() < maxAV) {
+                rearWheel2.applyTorque(torque, true);
+            }
+            if (frontWheel2.getAngularVelocity() < maxAV) {
+                frontWheel2.applyTorque(torque, true);
             }
         }
     }
@@ -318,11 +376,11 @@ public class Player extends ActorClip implements IBody{
             destroyOnNextUpdate = false;
             world.destroyJoint(frontWheelJoint);
             world.destroyJoint(rearWheelJoint);
-            world.destroyJoint(astroJoint);
-            world.destroyBody(astronaut);
-            astronautImg.remove();
+            //world.destroyJoint(astroJoint);
+            //world.destroyBody(astronaut);
+            //astronautImg.remove();
 
-            astronautFall();
+            //astronautFall();
         }
 
         super.act(delta);
