@@ -27,7 +27,7 @@ import vlad.stupak.Setting;
 import vlad.stupak.TankHill;
 import vlad.stupak.levels.Level;
 
-public class Player extends ActorClip implements IBody{
+public class Jeep extends ActorClip implements IBody{
 
     private Image roverImg, astronautImg, astronautFallImg, frontWheelImage, frontWheelImage2, rearWheelImg, rearWheelImg2;
 
@@ -50,7 +50,7 @@ public class Player extends ActorClip implements IBody{
     private Level level;
 
 
-    public Player(Level level) {
+    public Jeep(Level level) {
         this.level = level;
 
         roverImg = new Image(TankHill.atlas.findRegion("rover"));

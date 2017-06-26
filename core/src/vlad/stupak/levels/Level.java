@@ -41,7 +41,7 @@ import vlad.stupak.controls.CButton;
 import vlad.stupak.controls.JoyStick;
 import vlad.stupak.controls.JumpGauge;
 import vlad.stupak.player.IBody;
-import vlad.stupak.player.Player;
+import vlad.stupak.player.Btr;
 import vlad.stupak.player.UserData;
 import vlad.stupak.screens.LevelCompletedScreen;
 import vlad.stupak.screens.LevelFailedScreen;
@@ -70,7 +70,7 @@ public class Level extends StageGame{
 
     private int mapWidth, mapHeight, tilePixelWidth, tilePixelHeight, levelWidth, levelHeight;
 
-    private Player player;
+    private Btr btr;
     private Body finish;
 
     private Image pleaseWait;
@@ -135,8 +135,8 @@ public class Level extends StageGame{
 
         loadMap("tiled/" + directory + "/level.tmx");
 
-        if (player == null) {
-            throw new Error("player not defined");
+        if (btr == null) {
+            throw new Error("btr not defined");
         }
         if (finish == null) {
             throw new Error("finish not defined");
@@ -180,7 +180,7 @@ public class Level extends StageGame{
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 if (state == PLAY) {
-                    if (player.isTouchedGround()) {
+                    if (btr.isTouchedGround()) {
                         jumpGauge.start();
                         return true;
                     }
@@ -192,7 +192,7 @@ public class Level extends StageGame{
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 float jumpValue = jumpGauge.getValue();
-                player.jumpBack(jumpValue);
+                btr.jumpBack(jumpValue);
             }
         });
 
@@ -200,7 +200,7 @@ public class Level extends StageGame{
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 if (state == PLAY) {
-                    if (player.isTouchedGround()) {
+                    if (btr.isTouchedGround()) {
                         jumpGauge.start();
                         return true;
                     }
@@ -212,7 +212,7 @@ public class Level extends StageGame{
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 float jumpValue = jumpGauge.getValue();
-                player.jumpForward(jumpValue);
+                btr.jumpForward(jumpValue);
             }
         });
 
@@ -303,43 +303,43 @@ public class Level extends StageGame{
             Body bodyA = contact.getFixtureA().getBody();
             Body bodyB = contact.getFixtureB().getBody();
 
-            if (bodyA == player.rover) {
+            if (bodyA == btr.rover) {
                 playerTouch(bodyB);
                 return;
             }
-            if (bodyB == player.rover) {
+            if (bodyB == btr.rover) {
                 playerTouch(bodyA);
                 return;
             }
-            if (bodyA == player.frontWheel) {
+            if (bodyA == btr.frontWheel) {
                 UserData data = (UserData) bodyB.getUserData();
                 if (data!= null) {
                     if (data.name.equals("land")) {
-                        player.touchGround();
+                        btr.touchGround();
                         return;
                     }
                 }
-            }if (bodyB == player.frontWheel) {
+            }if (bodyB == btr.frontWheel) {
                 UserData data = (UserData) bodyA.getUserData();
                 if (data!= null) {
                     if (data.name.equals("land")) {
-                        player.touchGround();
+                        btr.touchGround();
                         return;
                     }
                 }
-            }if (bodyA == player.rearWheel) {
+            }if (bodyA == btr.rearWheel) {
                 UserData data = (UserData) bodyB.getUserData();
                 if (data!= null) {
                     if (data.name.equals("land")) {
-                        player.touchGround();
+                        btr.touchGround();
                         return;
                     }
                 }
-            }if (bodyB == player.rearWheel) {
+            }if (bodyB == btr.rearWheel) {
                 UserData data = (UserData) bodyA.getUserData();
                 if (data!= null) {
                     if (data.name.equals("land")) {
-                        player.touchGround();
+                        btr.touchGround();
                         return;
                     }
                 }
@@ -394,9 +394,6 @@ public class Level extends StageGame{
             }
 
         }
-
-
-
     }
 
     private void createItems(MapObjects objects) {
@@ -406,12 +403,12 @@ public class Level extends StageGame{
             rect = ((RectangleMapObject) object).getRectangle();
 
             if (object.getName().equals("player")) {
-                player = new Player(this);
-                player.setPosition(rect.x, rect.y);
-                addChild(player);
-                addBody(player);
+                btr = new Btr(this);
+                btr.setPosition(rect.x, rect.y);
+                addChild(btr);
+                addBody(btr);
 
-                stage.addActor(player);
+                stage.addActor(btr);
             } else if (object.getName().equals("finish")) {
                 finish = addFinish(rect);
             }
@@ -612,8 +609,8 @@ public class Level extends StageGame{
     }
 
     private void updateCamera() {
-        camera.position.x = player.getX();
-        camera.position.y = player.getY();
+        camera.position.x = btr.getX();
+        camera.position.y = btr.getY();
 
         if (camera.position.x - camera.viewportWidth/2 < 0) {
             camera.position.x = camera.viewportWidth/2;
@@ -644,13 +641,13 @@ public class Level extends StageGame{
         UserData data = (UserData) body.getUserData();
 
         if (data != null) {
-            if (data.name.equals("land") && !player.isHasDestoyed()) {
-                if (player.getRotation() < -90 || player.getRotation() > 90) {
-                    player.destroy();
+            if (data.name.equals("land") && !btr.isHasDestoyed()) {
+                if (btr.getRotation() < -90 || btr.getRotation() > 90) {
+                    btr.destroy();
                     TankHill.media.playSound("crash.ogg");
                     levelFailed();
                 } else {
-                    player.touchGround();
+                    btr.touchGround();
                 }
             }
         } else {
@@ -723,7 +720,7 @@ public class Level extends StageGame{
     }
 
     private void updateWorld(float delta) {
-        if (player.getRight() < levelWidth - 100) {
+        if (btr.getRight() < levelWidth - 100) {
             world.step(delta, 10, 10);
         }
 
@@ -765,14 +762,14 @@ public class Level extends StageGame{
 
         if (state == PLAY) {
 
-            player.onKey(lFront, lBack);
+            btr.onKey(lFront, lBack);
 
-            jumpGauge.setX(getStageToOverlayX(player.getX()));
-            jumpGauge.setY(getStageToOverlayY(player.getY() + 67));
+            jumpGauge.setX(getStageToOverlayX(btr.getX()));
+            jumpGauge.setY(getStageToOverlayY(btr.getY() + 67));
 
             updateCamera();
 
-            if (player.getY() < -100) {
+            if (btr.getY() < -100) {
                 levelFailed();
             }
 
