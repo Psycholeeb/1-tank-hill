@@ -124,7 +124,7 @@ public class Transport extends ActorClip implements IBody{
 
 
         rearWheelCont = new Group();
-        rearWheelImg = new Image(TankHill.atlas.findRegion("rear_wheel"));
+        rearWheelImg = new Image(TankHill.atlas.findRegion("front_wheel"));
         rearWheelCont.addActor(rearWheelImg);
         rearWheelImg.setX(-rearWheelImg.getWidth()/2);
         rearWheelImg.setY(-rearWheelImg.getHeight()/2);
@@ -145,7 +145,7 @@ public class Transport extends ActorClip implements IBody{
 
 
         rearWheelCont2 = new Group();
-        rearWheelImg2 = new Image(TankHill.atlas.findRegion("rear_wheel"));
+        rearWheelImg2 = new Image(TankHill.atlas.findRegion("front_wheel"));
         rearWheelCont2.addActor(rearWheelImg2);
         rearWheelImg2.setX(-rearWheelImg2.getWidth()/2);
         rearWheelImg2.setY(-rearWheelImg2.getHeight()/2);
@@ -157,26 +157,6 @@ public class Transport extends ActorClip implements IBody{
 
         rDef.initialize(rover, rearWheel2, new Vector2(rearWheel2.getPosition()));
         rearWheelJoint2 = world.createJoint(rDef);
-
-        /*vertices = traceOutline("astronaut_model");
-        centroid = Level.calculateCentroid(vertices);
-
-        i = 0;
-        while (i < vertices.length) {
-            vertices[i] -= centroid.x;
-            vertices[i + 1] -= centroid.y;
-
-            i+= 2;
-        }
-        vertices = DouglasPeucker.simplify(vertices, 6);
-        Level.scaleToWorld(vertices);
-        triangles = Level.getTriangles(new Polygon(vertices));
-        astronaut = createBodyFromTriangles(world, triangles);
-        astronaut.setTransform(rover.getPosition().x - 0 / Level.WORLD_SCALE, rover.getPosition().y + 30/ Level.WORLD_SCALE, 0);
-
-        WeldJointDef actronautDef = new WeldJointDef();
-        actronautDef.initialize(rover, astronaut, new Vector2(astronaut.getPosition()));
-        astroJoint = world.createJoint(actronautDef);*/
 
         return rover;
     }
@@ -345,5 +325,20 @@ public class Transport extends ActorClip implements IBody{
 
     public boolean isHasDestoyed() {
         return hasDestoyed;
+    }
+
+    @Override
+    public void act(float delta) {
+        if (jumpWait > 0) {
+            jumpWait -= delta;
+        }
+
+        if (destroyOnNextUpdate) {
+            destroyOnNextUpdate = false;
+            world.destroyJoint(frontWheelJoint);
+            world.destroyJoint(rearWheelJoint);
+        }
+
+        super.act(delta);
     }
 }

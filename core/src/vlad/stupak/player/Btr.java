@@ -40,19 +40,4 @@ public class Btr extends Transport{
         childs.addActor(roverImg);
         roverImg.setX(-roverImg.getWidth()/2);
     }
-
-    @Override
-    public void act(float delta) {
-        if (jumpWait > 0) {
-            jumpWait -= delta;
-        }
-
-        if (destroyOnNextUpdate) {
-            destroyOnNextUpdate = false;
-            world.destroyJoint(frontWheelJoint);
-            world.destroyJoint(rearWheelJoint);
-        }
-
-        super.act(delta);
-    }
 }
