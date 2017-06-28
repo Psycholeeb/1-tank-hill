@@ -42,6 +42,8 @@ import vlad.stupak.controls.JoyStick;
 import vlad.stupak.controls.JumpGauge;
 import vlad.stupak.player.IBody;
 import vlad.stupak.player.Btr;
+import vlad.stupak.player.Jeep;
+import vlad.stupak.player.Transport;
 import vlad.stupak.player.UserData;
 import vlad.stupak.screens.LevelCompletedScreen;
 import vlad.stupak.screens.LevelFailedScreen;
@@ -70,7 +72,6 @@ public class Level extends StageGame{
 
     private int mapWidth, mapHeight, tilePixelWidth, tilePixelHeight, levelWidth, levelHeight;
 
-    private Btr btr;
     private Body finish;
 
     private Image pleaseWait;
@@ -95,6 +96,9 @@ public class Level extends StageGame{
     private LevelCompletedScreen levelCompletedScreen;
     private LevelFailedScreen levelFailedScreen;
     private PausedScreen pausedScreen;
+
+    private Transport currentCar;
+    private int selectCar = 1;
 
     public Level(String directory) {
         this.directory = directory;
@@ -135,7 +139,7 @@ public class Level extends StageGame{
 
         loadMap("tiled/" + directory + "/level.tmx");
 
-        if (btr == null) {
+        if (currentCar == null) {
             throw new Error("btr not defined");
         }
         if (finish == null) {
@@ -180,7 +184,7 @@ public class Level extends StageGame{
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 if (state == PLAY) {
-                    if (btr.isTouchedGround()) {
+                    if (currentCar.isTouchedGround()) {
                         jumpGauge.start();
                         return true;
                     }
@@ -192,7 +196,7 @@ public class Level extends StageGame{
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 float jumpValue = jumpGauge.getValue();
-                btr.jumpBack(jumpValue);
+                currentCar.jumpBack(jumpValue);
             }
         });
 
@@ -200,7 +204,7 @@ public class Level extends StageGame{
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 if (state == PLAY) {
-                    if (btr.isTouchedGround()) {
+                    if (currentCar.isTouchedGround()) {
                         jumpGauge.start();
                         return true;
                     }
@@ -212,7 +216,7 @@ public class Level extends StageGame{
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 float jumpValue = jumpGauge.getValue();
-                btr.jumpForward(jumpValue);
+                currentCar.jumpForward(jumpValue);
             }
         });
 
@@ -303,43 +307,43 @@ public class Level extends StageGame{
             Body bodyA = contact.getFixtureA().getBody();
             Body bodyB = contact.getFixtureB().getBody();
 
-            if (bodyA == btr.rover) {
+            if (bodyA == currentCar.rover) {
                 playerTouch(bodyB);
                 return;
             }
-            if (bodyB == btr.rover) {
+            if (bodyB == currentCar.rover) {
                 playerTouch(bodyA);
                 return;
             }
-            if (bodyA == btr.frontWheel) {
+            if (bodyA == currentCar.frontWheel) {
                 UserData data = (UserData) bodyB.getUserData();
                 if (data!= null) {
                     if (data.name.equals("land")) {
-                        btr.touchGround();
+                        currentCar.touchGround();
                         return;
                     }
                 }
-            }if (bodyB == btr.frontWheel) {
+            }if (bodyB == currentCar.frontWheel) {
                 UserData data = (UserData) bodyA.getUserData();
                 if (data!= null) {
                     if (data.name.equals("land")) {
-                        btr.touchGround();
+                        currentCar.touchGround();
                         return;
                     }
                 }
-            }if (bodyA == btr.rearWheel) {
+            }if (bodyA == currentCar.rearWheel) {
                 UserData data = (UserData) bodyB.getUserData();
                 if (data!= null) {
                     if (data.name.equals("land")) {
-                        btr.touchGround();
+                        currentCar.touchGround();
                         return;
                     }
                 }
-            }if (bodyB == btr.rearWheel) {
+            }if (bodyB == currentCar.rearWheel) {
                 UserData data = (UserData) bodyA.getUserData();
                 if (data!= null) {
                     if (data.name.equals("land")) {
-                        btr.touchGround();
+                        currentCar.touchGround();
                         return;
                     }
                 }
@@ -403,12 +407,24 @@ public class Level extends StageGame{
             rect = ((RectangleMapObject) object).getRectangle();
 
             if (object.getName().equals("player")) {
-                btr = new Btr(this);
-                btr.setPosition(rect.x, rect.y);
-                addChild(btr);
-                addBody(btr);
-
-                stage.addActor(btr);
+                switch (selectCar){
+                    case 1:
+                        currentCar = new Btr(this);
+                        currentCar.setPosition(rect.x, rect.y);
+                        addChild(currentCar);
+                        addBody(currentCar);
+                        stage.addActor(currentCar);
+                        break;
+                    case 2:
+                        currentCar = new Jeep(this);
+                        currentCar.setPosition(rect.x, rect.y);
+                        addChild(currentCar);
+                        addBody(currentCar);
+                        stage.addActor(currentCar);
+                        break;
+                    default:
+                        throw new Error("not selected car");
+                }
             } else if (object.getName().equals("finish")) {
                 finish = addFinish(rect);
             }
@@ -609,8 +625,8 @@ public class Level extends StageGame{
     }
 
     private void updateCamera() {
-        camera.position.x = btr.getX();
-        camera.position.y = btr.getY();
+        camera.position.x = currentCar.getX();
+        camera.position.y = currentCar.getY();
 
         if (camera.position.x - camera.viewportWidth/2 < 0) {
             camera.position.x = camera.viewportWidth/2;
@@ -641,13 +657,13 @@ public class Level extends StageGame{
         UserData data = (UserData) body.getUserData();
 
         if (data != null) {
-            if (data.name.equals("land") && !btr.isHasDestoyed()) {
-                if (btr.getRotation() < -90 || btr.getRotation() > 90) {
-                    btr.destroy();
+            if (data.name.equals("land") && !currentCar.isHasDestoyed()) {
+                if (currentCar.getRotation() < -90 || currentCar.getRotation() > 90) {
+                    currentCar.destroy();
                     TankHill.media.playSound("crash.ogg");
                     levelFailed();
                 } else {
-                    btr.touchGround();
+                    currentCar.touchGround();
                 }
             }
         } else {
@@ -720,7 +736,7 @@ public class Level extends StageGame{
     }
 
     private void updateWorld(float delta) {
-        if (btr.getRight() < levelWidth - 100) {
+        if (currentCar.getRight() < levelWidth - 100) {
             world.step(delta, 10, 10);
         }
 
@@ -762,14 +778,14 @@ public class Level extends StageGame{
 
         if (state == PLAY) {
 
-            btr.onKey(lFront, lBack);
+            currentCar.onKey(lFront, lBack);
 
-            jumpGauge.setX(getStageToOverlayX(btr.getX()));
-            jumpGauge.setY(getStageToOverlayY(btr.getY() + 67));
+            jumpGauge.setX(getStageToOverlayX(currentCar.getX()));
+            jumpGauge.setY(getStageToOverlayY(currentCar.getY() + 67));
 
             updateCamera();
 
-            if (btr.getY() < -100) {
+            if (currentCar.getY() < -100) {
                 levelFailed();
             }
 
