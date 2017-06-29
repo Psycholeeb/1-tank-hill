@@ -6,7 +6,7 @@ filter: Nearest,Linear
 repeat: none
 astronaut
   rotate: false
-  xy: 1304, 502
+  xy: 1985, 692
   size: 61, 80
   orig: 61, 80
   offset: 0, 0
@@ -20,37 +20,44 @@ astronaut_fall
   index: -1
 astronaut_model
   rotate: false
-  xy: 1304, 430
+  xy: 1124, 139
   size: 53, 70
   orig: 53, 70
   offset: 0, 0
   index: -1
+btr_body
+  rotate: false
+  xy: 1641, 808
+  size: 270, 66
+  orig: 270, 66
+  offset: 0, 0
+  index: -1
+btr_model
+  rotate: false
+  xy: 804, 268
+  size: 270, 66
+  orig: 270, 66
+  offset: 0, 0
+  index: -1
+btr_wheel
+  rotate: false
+  xy: 717, 16
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: -1
 done_btn
   rotate: false
-  xy: 1076, 363
+  xy: 1641, 756
   size: 143, 50
   orig: 143, 50
   offset: 0, 0
   index: -1
 done_btn_down
   rotate: false
-  xy: 804, 91
+  xy: 148, 6
   size: 143, 50
   orig: 143, 50
-  offset: 0, 0
-  index: -1
-front_wheel
-  rotate: false
-  xy: 572, 16
-  size: 40, 40
-  orig: 40, 40
-  offset: 0, 0
-  index: -1
-rear_wheel
-  rotate: false
-  xy: 572, 16
-  size: 40, 40
-  orig: 40, 40
   offset: 0, 0
   index: -1
 game_completed
@@ -74,65 +81,86 @@ intro_bg
   orig: 800, 480
   offset: 0, 0
   index: -1
+jeep_body
+  rotate: false
+  xy: 1343, 651
+  size: 270, 77
+  orig: 270, 77
+  offset: 0, 0
+  index: -1
+jeep_model
+  rotate: false
+  xy: 804, 336
+  size: 270, 77
+  orig: 270, 77
+  offset: 0, 0
+  index: -1
+jeep_wheel
+  rotate: false
+  xy: 1076, 271
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: -1
 joystick
   rotate: false
-  xy: 1641, 774
+  xy: 1076, 313
   size: 186, 100
   orig: 186, 100
   offset: 0, 0
   index: -1
 joystick_left
   rotate: false
-  xy: 804, 245
+  xy: 804, 166
   size: 186, 100
   orig: 186, 100
   offset: 0, 0
   index: -1
 joystick_right
   rotate: false
-  xy: 804, 143
+  xy: 804, 64
   size: 186, 100
   orig: 186, 100
   offset: 0, 0
   index: -1
 jump1
   rotate: false
-  xy: 992, 245
+  xy: 1124, 211
   size: 100, 100
   orig: 100, 100
   offset: 0, 0
   index: -1
 jump1_down
   rotate: false
-  xy: 1094, 261
+  xy: 1786, 706
   size: 100, 100
   orig: 100, 100
   offset: 0, 0
   index: -1
 jump2
   rotate: false
-  xy: 992, 143
+  xy: 1489, 549
   size: 100, 100
   orig: 100, 100
   offset: 0, 0
   index: -1
 jump2_down
   rotate: false
-  xy: 1094, 159
+  xy: 1913, 774
   size: 100, 100
   orig: 100, 100
   offset: 0, 0
   index: -1
 jump_gauge_off
   rotate: false
-  xy: 1961, 867
+  xy: 992, 71
   size: 8, 7
   orig: 8, 7
   offset: 0, 0
   index: -1
 jump_gauge_on
   rotate: false
-  xy: 1076, 354
+  xy: 1591, 642
   size: 8, 7
   orig: 8, 7
   offset: 0, 0
@@ -153,28 +181,28 @@ level_completed
   index: -1
 level_icon_bg
   rotate: false
-  xy: 1221, 331
+  xy: 1264, 331
   size: 82, 82
   orig: 82, 82
   offset: 0, 0
   index: -1
 level_icon_bg_down
   rotate: false
-  xy: 1489, 565
+  xy: 1888, 677
   size: 95, 95
   orig: 95, 95
   offset: 0, 0
   index: -1
 level_icon_hilite
   rotate: false
-  xy: 1829, 744
+  xy: 992, 136
   size: 130, 130
   orig: 130, 130
   offset: 0, 0
   index: -1
 level_icon_lock
   rotate: false
-  xy: 1987, 887
+  xy: 1226, 270
   size: 30, 41
   orig: 30, 41
   offset: 0, 0
@@ -188,14 +216,14 @@ paused
   index: -1
 play_btn
   rotate: false
-  xy: 148, 6
+  xy: 293, 6
   size: 143, 50
   orig: 143, 50
   offset: 0, 0
   index: -1
 play_btn_down
   rotate: false
-  xy: 293, 6
+  xy: 438, 6
   size: 143, 50
   orig: 143, 50
   offset: 0, 0
@@ -209,28 +237,28 @@ please_wait
   index: -1
 quit_btn
   rotate: false
-  xy: 949, 87
+  xy: 992, 80
   size: 132, 54
   orig: 132, 54
   offset: 0, 0
   index: -1
 quit_btn_down
   rotate: false
-  xy: 438, 2
+  xy: 583, 2
   size: 132, 54
   orig: 132, 54
   offset: 0, 0
   index: -1
 rate
   rotate: false
-  xy: 1196, 247
+  xy: 1304, 500
   size: 82, 82
   orig: 82, 82
   offset: 0, 0
   index: -1
 rate_down
   rotate: false
-  xy: 1196, 163
+  xy: 1304, 416
   size: 82, 82
   orig: 82, 82
   offset: 0, 0
@@ -244,35 +272,21 @@ retry_btn
   index: -1
 retry_btn_down
   rotate: false
-  xy: 1343, 610
+  xy: 1343, 599
   size: 144, 50
   orig: 144, 50
   offset: 0, 0
   index: -1
-rover
-  rotate: false
-  xy: 1343, 662
-  size: 270, 66
-  orig: 270, 66
-  offset: 0, 0
-  index: -1
-rover_model
-  rotate: false
-  xy: 804, 347
-  size: 270, 66
-  orig: 270, 66
-  offset: 0, 0
-  index: -1
 share
   rotate: false
-  xy: 1641, 690
+  xy: 1388, 515
   size: 82, 82
   orig: 82, 82
   offset: 0, 0
   index: -1
 share_down
   rotate: false
-  xy: 1725, 690
+  xy: 1388, 431
   size: 82, 82
   orig: 82, 82
   offset: 0, 0

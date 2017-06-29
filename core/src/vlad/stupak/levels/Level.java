@@ -98,6 +98,8 @@ public class Level extends StageGame{
     private PausedScreen pausedScreen;
 
     private Transport currentCar;
+    private Btr btr;
+    private Jeep jeep;
     private int selectCar = 1;
 
     public Level(String directory) {
@@ -409,17 +411,19 @@ public class Level extends StageGame{
             if (object.getName().equals("player")) {
                 switch (selectCar){
                     case 1:
-                        currentCar = new Btr(this);
+                        btr = new Btr(this);
+                        currentCar = btr;
                         currentCar.setPosition(rect.x, rect.y);
                         addChild(currentCar);
-                        addBody(currentCar);
+                        addBody(btr);
                         stage.addActor(currentCar);
                         break;
                     case 2:
-                        currentCar = new Jeep(this);
+                        jeep = new Jeep(this);
+                        currentCar = jeep;
                         currentCar.setPosition(rect.x, rect.y);
                         addChild(currentCar);
-                        addBody(currentCar);
+                        addBody(jeep);
                         stage.addActor(currentCar);
                         break;
                     default:

@@ -27,20 +27,20 @@ import vlad.stupak.Setting;
 import vlad.stupak.TankHill;
 import vlad.stupak.levels.Level;
 
-public class Transport extends ActorClip implements IBody{
+public class Transport extends ActorClip{
 
     private Image roverImg, astronautImg, astronautFallImg, frontWheelImage, frontWheelImage2, rearWheelImg, rearWheelImg2;
 
     private Group frontWheelCont, frontWheelCont2, rearWheelCont, rearWheelCont2, astronautFallCont;
 
-    public Body rover, frontWheel, frontWheel2, rearWheel, rearWheel2, astronaut;
+    public  Body rover, frontWheel, frontWheel2, rearWheel, rearWheel2, astronaut;
 
-    private Joint frontWheelJoint, frontWheelJoint2, rearWheelJoint, rearWheelJoint2, astroJoint;
+    public Joint frontWheelJoint, frontWheelJoint2, rearWheelJoint, rearWheelJoint2, astroJoint;
 
     private World world;
 
     private boolean hasDestoyed = false;
-    private boolean destroyOnNextUpdate = false;
+    public boolean destroyOnNextUpdate = false;
 
     private boolean isTouchGround = true;
 
@@ -49,119 +49,7 @@ public class Transport extends ActorClip implements IBody{
 
     private Level level;
 
-    @Override
-    public Body createBody(World world) {
-        this.world = world;
-
-        BodyDef def = new BodyDef();
-        def.type = BodyDef.BodyType.DynamicBody;
-        def.linearDamping = 0;
-
-        float[] vertices = traceOutline("rover_model");
-        Vector2 centroid = Level.calculateCentroid(vertices);
-
-        int i = 0;
-        while (i < vertices.length) {
-            vertices[i] -= centroid.x;
-            vertices[i + 1] -= centroid.y;
-            i += 2;
-        }
-
-        vertices = DouglasPeucker.simplify(vertices, 4);
-        Level.scaleToWorld(vertices);
-        Array<Polygon> triangles = Level.getTriangles(new Polygon(vertices));
-        rover = createBodyFromTriangles(world, triangles);
-        rover.setTransform((getX()) / Level.WORLD_SCALE, (getY()) / Level.WORLD_SCALE, 0);
-
-
-        // FRONT WHEEL
-        frontWheel = createWheel(world, 18 / Level.WORLD_SCALE);
-        frontWheel.setTransform(rover.getPosition().x + 75 / Level.WORLD_SCALE, rover.getPosition().y + 1/Level.WORLD_SCALE, 0);
-
-        frontWheelCont = new Group();
-        frontWheelImage = new Image(TankHill.atlas.findRegion("front_wheel"));
-
-        frontWheelCont.addActor(frontWheelImage);
-        frontWheelImage.setX(-frontWheelImage.getWidth()/2);
-        frontWheelImage.setY(-frontWheelImage.getHeight()/2);
-
-        getParent().addActor(frontWheelCont);
-
-        UserData data = new UserData();
-        data.actor = frontWheelCont;
-        frontWheel.setUserData(data);
-
-        RevoluteJointDef rDef = new RevoluteJointDef();
-        rDef.initialize(rover, frontWheel, new Vector2(frontWheel.getPosition()));
-        frontWheelJoint = world.createJoint(rDef);
-
-
-        //FRONT WHEEL 2
-        frontWheel2 = createWheel(world, 18 / Level.WORLD_SCALE);
-        frontWheel2.setTransform(rover.getPosition().x + 27 / Level.WORLD_SCALE, rover.getPosition().y + 1/Level.WORLD_SCALE, 0);
-
-        frontWheelCont2 = new Group();
-        frontWheelImage2 = new Image(TankHill.atlas.findRegion("front_wheel"));
-
-        frontWheelCont2.addActor(frontWheelImage2);
-        frontWheelImage2.setX(-frontWheelImage2.getWidth()/2);
-        frontWheelImage2.setY(-frontWheelImage2.getHeight()/2);
-
-        getParent().addActor(frontWheelCont2);
-
-        data = new UserData();
-        data.actor = frontWheelCont2;
-        frontWheel2.setUserData(data);
-
-        rDef.initialize(rover, frontWheel2, new Vector2(frontWheel2.getPosition()));
-        frontWheelJoint2 = world.createJoint(rDef);
-
-
-        // REAR WHEEL
-        rearWheel = createWheel(world, 18 / Level.WORLD_SCALE);
-        rearWheel.setTransform(rover.getPosition().x - 83 / Level.WORLD_SCALE, rover.getPosition().y + 1/Level.WORLD_SCALE, 0);
-        rDef = new RevoluteJointDef();
-
-
-        rearWheelCont = new Group();
-        rearWheelImg = new Image(TankHill.atlas.findRegion("front_wheel"));
-        rearWheelCont.addActor(rearWheelImg);
-        rearWheelImg.setX(-rearWheelImg.getWidth()/2);
-        rearWheelImg.setY(-rearWheelImg.getHeight()/2);
-
-        getParent().addActor(rearWheelCont);
-        data = new UserData();
-        data.actor = rearWheelCont;
-        rearWheel.setUserData(data);
-
-        rDef.initialize(rover, rearWheel, new Vector2(rearWheel.getPosition()));
-        rearWheelJoint = world.createJoint(rDef);
-
-
-        // REAR WHEEL 2
-        rearWheel2 = createWheel(world, 18 / Level.WORLD_SCALE);
-        rearWheel2.setTransform(rover.getPosition().x - 35 / Level.WORLD_SCALE, rover.getPosition().y + 1/Level.WORLD_SCALE, 0);
-        rDef = new RevoluteJointDef();
-
-
-        rearWheelCont2 = new Group();
-        rearWheelImg2 = new Image(TankHill.atlas.findRegion("front_wheel"));
-        rearWheelCont2.addActor(rearWheelImg2);
-        rearWheelImg2.setX(-rearWheelImg2.getWidth()/2);
-        rearWheelImg2.setY(-rearWheelImg2.getHeight()/2);
-
-        getParent().addActor(rearWheelCont2);
-        data = new UserData();
-        data.actor = rearWheelCont2;
-        rearWheel2.setUserData(data);
-
-        rDef.initialize(rover, rearWheel2, new Vector2(rearWheel2.getPosition()));
-        rearWheelJoint2 = world.createJoint(rDef);
-
-        return rover;
-    }
-
-    private Body createWheel(World world, float rad) {
+    public Body createWheel(World world, float rad) {
 
         BodyDef def = new BodyDef();
         def.type = BodyDef.BodyType.DynamicBody;
@@ -186,7 +74,7 @@ public class Transport extends ActorClip implements IBody{
         return body;
     }
 
-    private float[] traceOutline(String regionName) {
+    public float[] traceOutline(String regionName) {
 
         Texture bodyOutLine = TankHill.atlas.findRegion(regionName).getTexture();
         TextureAtlas.AtlasRegion reg = TankHill.atlas.findRegion(regionName);
@@ -231,7 +119,7 @@ public class Transport extends ActorClip implements IBody{
         return polyVertices;
     }
 
-    private Body createBodyFromTriangles(World world, Array<Polygon> triangles) {
+    public Body createBodyFromTriangles(World world, Array<Polygon> triangles) {
         BodyDef def = new BodyDef();
         def.type = BodyDef.BodyType.DynamicBody;
         def.linearDamping = 0;
@@ -263,13 +151,6 @@ public class Transport extends ActorClip implements IBody{
             if (-frontWheel.getAngularVelocity() < maxAV) {
                 frontWheel.applyTorque(-torque, true);
             }
-            if (-rearWheel2.getAngularVelocity() < maxAV) {
-                rearWheel2.applyTorque(-torque, true);
-            }
-            if (-frontWheel2.getAngularVelocity() < maxAV) {
-                frontWheel2.applyTorque(-torque, true);
-            }
-
         }
         if (moveBackKey) {
             if (rearWheel.getAngularVelocity() < maxAV) {
@@ -277,12 +158,6 @@ public class Transport extends ActorClip implements IBody{
             }
             if (frontWheel.getAngularVelocity() < maxAV) {
                 frontWheel.applyTorque(torque, true);
-            }
-            if (rearWheel2.getAngularVelocity() < maxAV) {
-                rearWheel2.applyTorque(torque, true);
-            }
-            if (frontWheel2.getAngularVelocity() < maxAV) {
-                frontWheel2.applyTorque(torque, true);
             }
         }
     }
@@ -325,20 +200,5 @@ public class Transport extends ActorClip implements IBody{
 
     public boolean isHasDestoyed() {
         return hasDestoyed;
-    }
-
-    @Override
-    public void act(float delta) {
-        if (jumpWait > 0) {
-            jumpWait -= delta;
-        }
-
-        if (destroyOnNextUpdate) {
-            destroyOnNextUpdate = false;
-            world.destroyJoint(frontWheelJoint);
-            world.destroyJoint(rearWheelJoint);
-        }
-
-        super.act(delta);
     }
 }
