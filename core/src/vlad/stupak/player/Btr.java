@@ -17,20 +17,19 @@ import vlad.stupak.levels.Level;
 
 public class Btr extends Transport implements IBody{
 
-    private Image roverImg, astronautImg, astronautFallImg, frontWheelImage, frontWheelImage2, rearWheelImg, rearWheelImg2;
+    private Image roverImg, frontWheelImage, frontWheelImage2, rearWheelImg, rearWheelImg2;
 
-    private Group frontWheelCont, frontWheelCont2, rearWheelCont, rearWheelCont2, astronautFallCont;
+    private Group frontWheelCont, frontWheelCont2, rearWheelCont, rearWheelCont2;
 
-    private Body rover, frontWheel, frontWheel2, rearWheel, rearWheel2, astronaut;
+    private Body rover, frontWheel, frontWheel2, rearWheel, rearWheel2;
 
-    private Joint frontWheelJoint, frontWheelJoint2, rearWheelJoint, rearWheelJoint2, astroJoint;
+    private Joint frontWheelJoint, rearWheelJoint;
 
     private World world;
 
     private float jumpWait = 0;
 
     private Level level;
-
 
     public Btr(Level level) {
         this.level = level;

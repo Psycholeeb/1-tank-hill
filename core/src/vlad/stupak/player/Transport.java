@@ -12,8 +12,6 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.Joint;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.scenes.scene2d.Group;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.Array;
 import com.boontaran.games.ActorClip;
 import com.boontaran.marchingSquare.MarchingSquare;
@@ -25,16 +23,9 @@ import vlad.stupak.Setting;
 import vlad.stupak.levels.Level;
 
 public class Transport extends ActorClip{
+    public  Body rover, frontWheel, frontWheel2, rearWheel, rearWheel2;
 
-    private Image roverImg, astronautImg, astronautFallImg, frontWheelImage, frontWheelImage2, rearWheelImg, rearWheelImg2;
-
-    private Group frontWheelCont, frontWheelCont2, rearWheelCont, rearWheelCont2, astronautFallCont;
-
-    public  Body rover, frontWheel, frontWheel2, rearWheel, rearWheel2, astronaut;
-
-    public Joint frontWheelJoint, frontWheelJoint2, rearWheelJoint, rearWheelJoint2, astroJoint;
-
-    private World world;
+    public Joint frontWheelJoint2, rearWheelJoint2;
 
     private boolean hasDestoyed = false;
     public boolean destroyOnNextUpdate = false;
@@ -43,8 +34,6 @@ public class Transport extends ActorClip{
 
     private float jumpImpulse = Setting.JUMP_IMPULSE;
     private float jumpWait = 0;
-
-    private Level level;
 
     public Body createWheel(World world, float rad) {
 

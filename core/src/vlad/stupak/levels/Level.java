@@ -82,8 +82,6 @@ public class Level extends StageGame{
     private String musicName;
     private boolean musicHasLoaded;
 
-    private String customBackground = null;
-
     private static final float LAND_RESTITUTION = 0.5f;
     private World world;
     private Box2DDebugRenderer debugRenderer;

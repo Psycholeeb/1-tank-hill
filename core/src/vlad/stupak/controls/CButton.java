@@ -1,9 +1,5 @@
 package vlad.stupak.controls;
 
-/**
- * Created by Vlad on 27.02.2017.
- */
-
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;

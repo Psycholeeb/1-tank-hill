@@ -1,9 +1,5 @@
 package vlad.stupak;
 
-/**
- * Created by Vlad on 10.03.2017.
- */
-
 public class Setting {
     public static final boolean DEBUG_GAME = false;
     public static final boolean DEBUG_WORLD = true;
