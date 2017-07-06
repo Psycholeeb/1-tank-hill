@@ -13,9 +13,9 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.boontaran.games.StageGame;
 
-import vlad.stupak.TankHill;
+import vlad.stupak.Main;
 
-import static vlad.stupak.TankHill.media;
+import static vlad.stupak.Main.media;
 
 public class Intro extends StageGame{
 
@@ -27,10 +27,10 @@ public class Intro extends StageGame{
 
     public Intro() {
 
-        Image bg = new Image(TankHill.atlas.findRegion("intro_bg"));
+        Image bg = new Image(Main.atlas.findRegion("intro_bg"));
         addBackground(bg, true, false);
 
-        title = new Image(TankHill.atlas.findRegion("title"));
+        title = new Image(Main.atlas.findRegion("title"));
         addChild(title);
 
         centerActorX(title);
@@ -45,8 +45,8 @@ public class Intro extends StageGame{
         title.addAction(Actions.delay(0.5f, move));
 
         playBtn = new ImageButton(
-                new TextureRegionDrawable(TankHill.atlas.findRegion("play_btn")),
-                new TextureRegionDrawable(TankHill.atlas.findRegion("play_btn_down"))
+                new TextureRegionDrawable(Main.atlas.findRegion("play_btn")),
+                new TextureRegionDrawable(Main.atlas.findRegion("play_btn_down"))
         );
 
         addChild(playBtn);

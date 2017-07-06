@@ -9,7 +9,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.boontaran.MessageEvent;
-import vlad.stupak.TankHill;
+
+import vlad.stupak.Main;
 
 public class LevelCompletedScreen extends Group{
 
@@ -23,14 +24,14 @@ public class LevelCompletedScreen extends Group{
         this.w = w;
         this.h = h;
 
-        title = new Image(TankHill.atlas.findRegion("level_completed"));
+        title = new Image(Main.atlas.findRegion("level_completed"));
         title.setX((w-title.getWidth())/2);
         title.setY(h);
         addActor(title);
 
         done = new ImageButton(
-                new TextureRegionDrawable(TankHill.atlas.findRegion("done_btn")),
-                new TextureRegionDrawable(TankHill.atlas.findRegion("done_btn_down")) );
+                new TextureRegionDrawable(Main.atlas.findRegion("done_btn")),
+                new TextureRegionDrawable(Main.atlas.findRegion("done_btn_down")) );
         addActor(done);
         done.setY((h-done.getHeight())/2 - 60);
         done.setX(w/2 - done.getWidth()/2);
@@ -40,7 +41,7 @@ public class LevelCompletedScreen extends Group{
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 fire(new MessageEvent(ON_DONE));
-                TankHill.media.playSound("click.ogg");
+                Main.media.playSound("click.ogg");
             }
         });
     }

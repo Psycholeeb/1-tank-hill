@@ -33,7 +33,7 @@ public class AndroidLauncher extends AndroidApplication {
 		mainView = new RelativeLayout(this);
 		setContentView(mainView);
 
-		View gameView = initializeForView(new TankHill(gameCallback));
+		View gameView = initializeForView(new Main(gameCallback));
 		mainView.addView(gameView);
 
 		bannerParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
@@ -49,35 +49,35 @@ public class AndroidLauncher extends AndroidApplication {
 		@Override
 		public void sendMessage(int message) {
 
-			if (message == TankHill.SHOW_BANNER) {
+			if (message == Main.SHOW_BANNER) {
 				AndroidLauncher.this.runOnUiThread(new Runnable() {
 					@Override
 					public void run() {
 					}
 				});
-			} else if (message == TankHill.HIDE_BANNER) {
+			} else if (message == Main.HIDE_BANNER) {
 				AndroidLauncher.this.runOnUiThread(new Runnable() {
 					@Override
 					public void run() {
 					}
 				});
-			} else if (message == TankHill.LOAD_INTERSTITIAL) {
+			} else if (message == Main.LOAD_INTERSTITIAL) {
 
 
-			} else if (message == TankHill.SHOW_INTERSTITIAL) {
+			} else if (message == Main.SHOW_INTERSTITIAL) {
 				AndroidLauncher.this.runOnUiThread(new Runnable() {
 					@Override
 					public void run() {
 
 					}
 				});
-			} else if (message == TankHill.OPEN_MARKET) {
+			} else if (message == Main.OPEN_MARKET) {
 				Uri uri = Uri.parse(getString(R.string.share_url));
 				Intent intent = new Intent(Intent.ACTION_VIEW, uri);
 				startActivity(intent);
 
 
-			} else if (message == TankHill.SHARE) {
+			} else if (message == Main.SHARE) {
 				Intent sharingIntent = new Intent(Intent.ACTION_SEND);
 				sharingIntent.setType("text/plain");
 				String shareTitle = getString(R.string.share_title);

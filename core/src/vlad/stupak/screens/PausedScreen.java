@@ -10,7 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.boontaran.MessageEvent;
 
-import vlad.stupak.TankHill;
+import vlad.stupak.Main;
 
 public class PausedScreen extends Group{
 
@@ -26,13 +26,13 @@ public class PausedScreen extends Group{
         this.w = w;
         this.h = h;
 
-        title = new Image(TankHill.atlas.findRegion("paused"));
+        title = new Image(Main.atlas.findRegion("paused"));
         title.setX((w - title.getWidth()) / 2);
         title.setY(h);
         addActor(title);
 
-        resume = new ImageButton(new TextureRegionDrawable(TankHill.atlas.findRegion("play_btn")),
-                new TextureRegionDrawable(TankHill.atlas.findRegion("play_btn_down")
+        resume = new ImageButton(new TextureRegionDrawable(Main.atlas.findRegion("play_btn")),
+                new TextureRegionDrawable(Main.atlas.findRegion("play_btn_down")
                 ));
 
         addActor(resume);
@@ -47,8 +47,8 @@ public class PausedScreen extends Group{
         });
 
         quit = new ImageButton(
-                new TextureRegionDrawable(TankHill.atlas.findRegion("quit_btn")),
-                new TextureRegionDrawable(TankHill.atlas.findRegion("quit_btn_down"))
+                new TextureRegionDrawable(Main.atlas.findRegion("quit_btn")),
+                new TextureRegionDrawable(Main.atlas.findRegion("quit_btn_down"))
         );
 
         addActor(quit);

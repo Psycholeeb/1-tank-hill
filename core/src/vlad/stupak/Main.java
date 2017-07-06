@@ -23,7 +23,7 @@ import vlad.stupak.mediafile.Media;
 import vlad.stupak.screens.Intro;
 import vlad.stupak.utils.Data;
 
-public class TankHill extends Game {
+public class Main extends Game {
 
 	public static final int SHOW_BANNER = 1;
 	public static final int HIDE_BANNER = 2;
@@ -54,7 +54,7 @@ public class TankHill extends Game {
 	private int lastLevelId;
 
 
-	public TankHill(GameCallback gameCallback) {
+	public Main(GameCallback gameCallback) {
 		this.gameCallback = gameCallback;
 	}
 

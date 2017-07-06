@@ -12,8 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.Array;
 import com.boontaran.douglasPeucker.DouglasPeucker;
 
-import vlad.stupak.Setting;
-import vlad.stupak.TankHill;
+import vlad.stupak.Main;
 import vlad.stupak.levels.Level;
 
 public class Btr extends Transport implements IBody{
@@ -36,7 +35,7 @@ public class Btr extends Transport implements IBody{
     public Btr(Level level) {
         this.level = level;
 
-        roverImg = new Image(TankHill.atlas.findRegion("btr_body"));
+        roverImg = new Image(Main.atlas.findRegion("btr_body"));
         childs.addActor(roverImg);
         roverImg.setX(-roverImg.getWidth()/2);
     }
@@ -71,7 +70,7 @@ public class Btr extends Transport implements IBody{
         frontWheel.setTransform(rover.getPosition().x + 75 / Level.WORLD_SCALE, rover.getPosition().y + 1/Level.WORLD_SCALE, 0);
 
         frontWheelCont = new Group();
-        frontWheelImage = new Image(TankHill.atlas.findRegion("btr_wheel"));
+        frontWheelImage = new Image(Main.atlas.findRegion("btr_wheel"));
 
         frontWheelCont.addActor(frontWheelImage);
         frontWheelImage.setX(-frontWheelImage.getWidth()/2);
@@ -93,7 +92,7 @@ public class Btr extends Transport implements IBody{
         frontWheel2.setTransform(rover.getPosition().x + 27 / Level.WORLD_SCALE, rover.getPosition().y + 1/Level.WORLD_SCALE, 0);
 
         frontWheelCont2 = new Group();
-        frontWheelImage2 = new Image(TankHill.atlas.findRegion("btr_wheel"));
+        frontWheelImage2 = new Image(Main.atlas.findRegion("btr_wheel"));
 
         frontWheelCont2.addActor(frontWheelImage2);
         frontWheelImage2.setX(-frontWheelImage2.getWidth()/2);
@@ -116,7 +115,7 @@ public class Btr extends Transport implements IBody{
 
 
         rearWheelCont = new Group();
-        rearWheelImg = new Image(TankHill.atlas.findRegion("btr_wheel"));
+        rearWheelImg = new Image(Main.atlas.findRegion("btr_wheel"));
         rearWheelCont.addActor(rearWheelImg);
         rearWheelImg.setX(-rearWheelImg.getWidth()/2);
         rearWheelImg.setY(-rearWheelImg.getHeight()/2);
@@ -137,7 +136,7 @@ public class Btr extends Transport implements IBody{
 
 
         rearWheelCont2 = new Group();
-        rearWheelImg2 = new Image(TankHill.atlas.findRegion("btr_wheel"));
+        rearWheelImg2 = new Image(Main.atlas.findRegion("btr_wheel"));
         rearWheelCont2.addActor(rearWheelImg2);
         rearWheelImg2.setX(-rearWheelImg2.getWidth()/2);
         rearWheelImg2.setY(-rearWheelImg2.getHeight()/2);

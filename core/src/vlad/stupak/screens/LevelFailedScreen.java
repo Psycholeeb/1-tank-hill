@@ -10,7 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.boontaran.MessageEvent;
 
-import vlad.stupak.TankHill;
+import vlad.stupak.Main;
 
 ;
 
@@ -27,14 +27,14 @@ public class LevelFailedScreen extends Group{
         this.w = w;
         this.h = h;
 
-        title = new Image(TankHill.atlas.findRegion("game_over"));
+        title = new Image(Main.atlas.findRegion("game_over"));
         title.setX((w-title.getWidth())/2);
         title.setY(h);
         addActor(title);
 
         retry = new ImageButton(
-                new TextureRegionDrawable(TankHill.atlas.findRegion("retry_btn")),
-                new TextureRegionDrawable(TankHill.atlas.findRegion("retry_btn_down"))    );
+                new TextureRegionDrawable(Main.atlas.findRegion("retry_btn")),
+                new TextureRegionDrawable(Main.atlas.findRegion("retry_btn_down"))    );
 
         addActor(retry);
         retry.setY((h-retry.getHeight())/2-60);
@@ -45,13 +45,13 @@ public class LevelFailedScreen extends Group{
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 fire(new MessageEvent(ON_RETRY));
-                TankHill.media.playSound("click.ogg");
+                Main.media.playSound("click.ogg");
             }
         });
 
         quit = new ImageButton(
-                new TextureRegionDrawable(TankHill.atlas.findRegion("quit_btn")),
-                new TextureRegionDrawable(TankHill.atlas.findRegion("quit_btn_down"))
+                new TextureRegionDrawable(Main.atlas.findRegion("quit_btn")),
+                new TextureRegionDrawable(Main.atlas.findRegion("quit_btn_down"))
         );
 
         addActor(quit);
@@ -62,7 +62,7 @@ public class LevelFailedScreen extends Group{
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 fire(new MessageEvent(ON_QUIT));
-                TankHill.media.playSound("click.ogg");
+                Main.media.playSound("click.ogg");
             }
         });
     }

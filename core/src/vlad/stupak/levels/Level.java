@@ -35,7 +35,7 @@ import com.boontaran.MessageListener;
 import com.boontaran.games.StageGame;
 import com.boontaran.games.tiled.TileLayer;
 
-import vlad.stupak.TankHill;
+import vlad.stupak.Main;
 import vlad.stupak.Setting;
 import vlad.stupak.controls.CButton;
 import vlad.stupak.controls.JoyStick;
@@ -105,7 +105,7 @@ public class Level extends StageGame{
     public Level(String directory) {
         this.directory = directory;
 
-        pleaseWait = new Image(TankHill.atlas.findRegion("please_wait"));
+        pleaseWait = new Image(Main.atlas.findRegion("please_wait"));
         addOverlayChild(pleaseWait);
         centerActorXY(pleaseWait);
 
@@ -126,7 +126,7 @@ public class Level extends StageGame{
 
     private void setBackGround(String region) {
         clearBackground();
-        Image bg = new Image(TankHill.atlas.findRegion(region));
+        Image bg = new Image(Main.atlas.findRegion(region));
         addBackground(bg, true, false);
     }
 
@@ -164,16 +164,16 @@ public class Level extends StageGame{
         joyStick.setPosition(15, 15);
 
         jumpBackBtn = new CButton(
-                new Image(TankHill.atlas.findRegion("jump1")),
-                new Image(TankHill.atlas.findRegion("jump1_down")),
+                new Image(Main.atlas.findRegion("jump1")),
+                new Image(Main.atlas.findRegion("jump1_down")),
                 mmToPx(10)
         );
 
         addOverlayChild(jumpBackBtn);
 
         jumpForwardBtn = new CButton(
-                new Image(TankHill.atlas.findRegion("jump2")),
-                new Image(TankHill.atlas.findRegion("jump2_down")),
+                new Image(Main.atlas.findRegion("jump2")),
+                new Image(Main.atlas.findRegion("jump2_down")),
                 mmToPx(10)
         );
 
@@ -249,10 +249,10 @@ public class Level extends StageGame{
             @Override
             protected void receivedMessage(int message, Actor actor) {
                 if (message == PausedScreen.ON_RESUME) {
-                    TankHill.media.playSound("click.ogg");
+                    Main.media.playSound("click.ogg");
                     resumelevel();
                 } else if (message == PausedScreen.ON_QUIT) {
-                    TankHill.media.playSound("click.ogg");
+                    Main.media.playSound("click.ogg");
                     quitLevel();
                 }
             }
@@ -284,7 +284,7 @@ public class Level extends StageGame{
 
     public void setMusic(String name) {
         musicName = name;
-        TankHill.media.addMusic(name);
+        Main.media.addMusic(name);
     }
 
     public String getMusicName() {
@@ -294,8 +294,8 @@ public class Level extends StageGame{
     @Override
     public void dispose() {
         if (musicName != null && musicHasLoaded) {
-            TankHill.media.stopMusic(musicName);
-            TankHill.media.removeMusic(musicName);
+            Main.media.stopMusic(musicName);
+            Main.media.removeMusic(musicName);
         }
         if (world != null) world.dispose();
         map.dispose();
@@ -464,12 +464,12 @@ public class Level extends StageGame{
 
     private void playMusic() {
         if (musicName != null && musicHasLoaded) {
-            TankHill.media.playMusic(musicName, true);
+            Main.media.playMusic(musicName, true);
         }
     }
     private void stopMusic() {
         if (musicName != null && musicHasLoaded) {
-            TankHill.media.stopMusic(musicName);
+            Main.media.stopMusic(musicName);
         }
     }
 
@@ -664,7 +664,7 @@ public class Level extends StageGame{
             if (data.name.equals("land") && !currentCar.isHasDestoyed()) {
                 if (currentCar.getRotation() < -90 || currentCar.getRotation() > 90) {
                     currentCar.destroy();
-                    TankHill.media.playSound("crash.ogg");
+                    Main.media.playSound("crash.ogg");
                     levelFailed();
                 } else {
                     currentCar.touchGround();
@@ -688,8 +688,8 @@ public class Level extends StageGame{
         addOverlayChild(levelCompletedScreen);
         levelCompletedScreen.start();
 
-        TankHill.media.playSound("level_completed.ogg");
-        TankHill.media.playMusic("level_win.ogg", false);
+        Main.media.playSound("level_completed.ogg");
+        Main.media.playMusic("level_win.ogg", false);
     }
 
     private void levelFailed() {
@@ -768,7 +768,7 @@ public class Level extends StageGame{
         super.update(delta);
 
         if (musicName != null && !musicHasLoaded) {
-            if (TankHill.media.update()) {
+            if (Main.media.update()) {
                 musicHasLoaded = true;
                 playMusic();
             }
@@ -835,7 +835,7 @@ public class Level extends StageGame{
     @Override
     public boolean keyUp(int keycode) {
         if (keycode == Input.Keys.ESCAPE || keycode == Input.Keys.BACK) {
-            TankHill.media.playSound("click.ogg");
+            Main.media.playSound("click.ogg");
             pauseLevel();
         }
 

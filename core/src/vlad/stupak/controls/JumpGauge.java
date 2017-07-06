@@ -6,7 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.Array;
 
-import vlad.stupak.TankHill;
+import vlad.stupak.Main;
 
 public class JumpGauge  extends Group{
 
@@ -21,7 +21,7 @@ public class JumpGauge  extends Group{
 
         offs = new Array<Image>();
         ons = new Array<Image>();
-        NinePatch patch = new NinePatch(TankHill.atlas.findRegion("jump_gauge_off"), 3,3,3,3);
+        NinePatch patch = new NinePatch(Main.atlas.findRegion("jump_gauge_off"), 3,3,3,3);
 
         int i;
         int w;
@@ -40,7 +40,7 @@ public class JumpGauge  extends Group{
 
         }
 
-        patch = new NinePatch(TankHill.atlas.findRegion("jump_gauge_on"), 3, 3, 3, 3);
+        patch = new NinePatch(Main.atlas.findRegion("jump_gauge_on"), 3, 3, 3, 3);
 
         for (i = 0; i < 5; i++) {
             w = (i+3)*4;

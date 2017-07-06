@@ -10,7 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.boontaran.games.StageGame;
 
-import vlad.stupak.TankHill;
+import vlad.stupak.Main;
 import vlad.stupak.Setting;
 import vlad.stupak.mediafile.LevelIcon;
 
@@ -25,7 +25,7 @@ public class LevelList  extends StageGame {
     private int selectedLevelId = 0;
 
     public LevelList() {
-        Image bg = new Image(TankHill.atlas.findRegion("intro_bg"));
+        Image bg = new Image(Main.atlas.findRegion("intro_bg"));
         addBackground(bg, true, false);
 
         container = new Group();
@@ -38,7 +38,7 @@ public class LevelList  extends StageGame {
         int id = 1;
         int x, y;
 
-        int progress = TankHill.data.getProgress();
+        int progress = Main.data.getProgress();
 
         for (y = 0; y < row; y++) {
             for (x = 0; x < col; x++) {
@@ -78,8 +78,8 @@ public class LevelList  extends StageGame {
         container.setColor(1,1,1,0);
         container.addAction(Actions.alpha(1, 0.4f));
 
-        ImageButton rateBtn = new ImageButton(new TextureRegionDrawable(TankHill.atlas.findRegion("rate")),
-                new TextureRegionDrawable(TankHill.atlas.findRegion("rate_down")));
+        ImageButton rateBtn = new ImageButton(new TextureRegionDrawable(Main.atlas.findRegion("rate")),
+                new TextureRegionDrawable(Main.atlas.findRegion("rate_down")));
 
         addChild(rateBtn);
         rateBtn.setX(getWidth() - rateBtn.getWidth() - 20);
@@ -92,8 +92,8 @@ public class LevelList  extends StageGame {
             }
         });
 
-        ImageButton shareBtn = new ImageButton(new TextureRegionDrawable(TankHill.atlas.findRegion("share")),
-                new TextureRegionDrawable(TankHill.atlas.findRegion("share_down")));
+        ImageButton shareBtn = new ImageButton(new TextureRegionDrawable(Main.atlas.findRegion("share")),
+                new TextureRegionDrawable(Main.atlas.findRegion("share_down")));
         addChild(shareBtn);
         shareBtn.setX(getWidth() - shareBtn.getWidth() - 20);
         shareBtn.setY(20);
@@ -112,7 +112,7 @@ public class LevelList  extends StageGame {
         @Override
         public void clicked(InputEvent event, float x, float y) {
             selectedLevelId = ((LevelIcon)event.getTarget()).getId();
-            TankHill.media.playSound("click.ogg");
+            Main.media.playSound("click.ogg");
             call(ON_LEVEL_SELECTED);
         }
     };
@@ -120,7 +120,7 @@ public class LevelList  extends StageGame {
     @Override
     public boolean keyUp(int keycode) {
         if (keycode == Input.Keys.ESCAPE || keycode == Input.Keys.BACK) {
-            TankHill.media.playSound("click.ogg");
+            Main.media.playSound("click.ogg");
             call(ON_BACK);
             return true;
         }

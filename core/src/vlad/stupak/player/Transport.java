@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Polygon;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
@@ -13,18 +12,16 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.Joint;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.physics.box2d.joints.RevoluteJointDef;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.Array;
-import com.boontaran.douglasPeucker.DouglasPeucker;
 import com.boontaran.games.ActorClip;
 import com.boontaran.marchingSquare.MarchingSquare;
 
 import java.util.ArrayList;
 
+import vlad.stupak.Main;
 import vlad.stupak.Setting;
-import vlad.stupak.TankHill;
 import vlad.stupak.levels.Level;
 
 public class Transport extends ActorClip{
@@ -76,8 +73,8 @@ public class Transport extends ActorClip{
 
     public float[] traceOutline(String regionName) {
 
-        Texture bodyOutLine = TankHill.atlas.findRegion(regionName).getTexture();
-        TextureAtlas.AtlasRegion reg = TankHill.atlas.findRegion(regionName);
+        Texture bodyOutLine = Main.atlas.findRegion(regionName).getTexture();
+        TextureAtlas.AtlasRegion reg = Main.atlas.findRegion(regionName);
         int w = reg.getRegionWidth();
         int h = reg.getRegionHeight();
         int x = reg.getRegionX();

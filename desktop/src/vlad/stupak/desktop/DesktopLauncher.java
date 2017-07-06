@@ -3,7 +3,7 @@ package vlad.stupak.desktop;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 
-import vlad.stupak.TankHill;
+import vlad.stupak.Main;
 import vlad.stupak.GameCallback;
 
 public class DesktopLauncher {
@@ -12,7 +12,7 @@ public class DesktopLauncher {
 		config.width = 800;
 		config.height = 480;
 
-		new LwjglApplication(new TankHill(callback), config);
+		new LwjglApplication(new Main(callback), config);
 	}
 
 	private GameCallback callback = new GameCallback() {

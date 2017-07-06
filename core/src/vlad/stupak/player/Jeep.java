@@ -12,8 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.Array;
 import com.boontaran.douglasPeucker.DouglasPeucker;
 
-import vlad.stupak.Setting;
-import vlad.stupak.TankHill;
+import vlad.stupak.Main;
 import vlad.stupak.levels.Level;
 
 public class Jeep extends Transport implements IBody{
@@ -36,7 +35,7 @@ public class Jeep extends Transport implements IBody{
     public Jeep(Level level) {
         this.level = level;
 
-        roverImg = new Image(TankHill.atlas.findRegion("jeep_body"));
+        roverImg = new Image(Main.atlas.findRegion("jeep_body"));
         childs.addActor(roverImg);
         roverImg.setX(-roverImg.getWidth()/2);
     }
@@ -71,7 +70,7 @@ public class Jeep extends Transport implements IBody{
         frontWheel.setTransform(rover.getPosition().x + 75 / Level.WORLD_SCALE, rover.getPosition().y + 1/Level.WORLD_SCALE, 0);
 
         frontWheelCont = new Group();
-        frontWheelImage = new Image(TankHill.atlas.findRegion("jeep_wheel"));
+        frontWheelImage = new Image(Main.atlas.findRegion("jeep_wheel"));
 
         frontWheelCont.addActor(frontWheelImage);
         frontWheelImage.setX(-frontWheelImage.getWidth()/2);
@@ -94,7 +93,7 @@ public class Jeep extends Transport implements IBody{
 
 
         rearWheelCont = new Group();
-        rearWheelImg = new Image(TankHill.atlas.findRegion("jeep_wheel"));
+        rearWheelImg = new Image(Main.atlas.findRegion("jeep_wheel"));
         rearWheelCont.addActor(rearWheelImg);
         rearWheelImg.setX(-rearWheelImg.getWidth()/2);
         rearWheelImg.setY(-rearWheelImg.getHeight()/2);
