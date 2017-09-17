@@ -49,13 +49,12 @@ public class Transport extends ActorClip{
         shape.setRadius(rad);
 
         fDef.shape = shape;
-        fDef.restitution = 0.1f;  //0.5f эластичность
-        fDef.friction = 1;  //0.4f трение
-        fDef.density = 1;  //1 плотность кг/m^2
+        fDef.restitution = Setting.RESTITUTION;
+        fDef.friction = Setting.FRICTION;
+        fDef.density = Setting.DENSITY;
 
         body.createFixture(fDef);
         shape.dispose();
-
 
         return body;
     }
@@ -118,7 +117,7 @@ public class Transport extends ActorClip{
 
             fDef.shape = shape;
             fDef.restitution = 0; //0.3f эластичность
-            fDef.density = 1.2f;  //1 плотность кг/m^2
+            fDef.density = 1;  //1 плотность кг/m^2
 
             body.createFixture(fDef);
             shape.dispose();
@@ -128,22 +127,22 @@ public class Transport extends ActorClip{
 
     public void onKey(boolean moveFrontKey, boolean moveBackKey) {
         float torque = Setting.WHEEL_TORQUE;
-        float maxAV = 18;
+        float maxAV = Setting.SPEED;
 
         if (moveFrontKey) {
+            if (-rearWheel2.getAngularVelocity() < maxAV) {
+                rearWheel2.applyTorque(-torque, true);
+            }
             if (-rearWheel.getAngularVelocity() < maxAV) {
                 rearWheel.applyTorque(-torque, true);
             }
-            if (-frontWheel.getAngularVelocity() < maxAV) {
-                frontWheel.applyTorque(-torque, true);
-            }
         }
         if (moveBackKey) {
+            if (rearWheel2.getAngularVelocity() < maxAV) {
+                rearWheel2.applyTorque(torque, true);
+            }
             if (rearWheel.getAngularVelocity() < maxAV) {
                 rearWheel.applyTorque(torque, true);
-            }
-            if (frontWheel.getAngularVelocity() < maxAV) {
-                frontWheel.applyTorque(torque, true);
             }
         }
     }

@@ -72,7 +72,7 @@ public class Level extends StageGame{
 
     private int mapWidth, mapHeight, tilePixelWidth, tilePixelHeight, levelWidth, levelHeight;
 
-    private Body finish;
+    private Body finish, b1, b2, b3;
 
     private Image pleaseWait;
 
@@ -430,6 +430,12 @@ public class Level extends StageGame{
             } else if (object.getName().equals("finish")) {
                 finish = addFinish(rect);
             }
+            if (object.getName().equals("1"))
+                b1 = addBox(rect);
+            if (object.getName().equals("2"))
+                b2 = addBox(rect);
+            if (object.getName().equals("3"))
+                b3 = addBox(rect);
         }
     }
 
@@ -451,6 +457,34 @@ public class Level extends StageGame{
         fdef.restitution = LAND_RESTITUTION;
         fdef.density = 1;
         fdef.isSensor = true;
+
+        Body body = world.createBody(def);
+        body.createFixture(fdef);
+        body.setTransform(rectangle.x + rectangle.width/2, rectangle.y + rectangle.height/2, 0);
+        shape.dispose();
+
+        return body;
+    }
+
+    private Body addBox(Rectangle rectangle) {
+        rectangle.x /= WORLD_SCALE;
+        rectangle.y /= WORLD_SCALE;
+        rectangle.width = 2;
+        rectangle.height = 1;
+
+        BodyDef def = new BodyDef();
+        def.type = BodyType.DynamicBody;
+        def.linearDamping = 0;
+
+        FixtureDef fdef = new FixtureDef();
+        PolygonShape shape = new PolygonShape();
+        shape.setAsBox(rectangle.width/2, rectangle.height/2);
+
+        fdef.shape = shape;
+        fdef.restitution = LAND_RESTITUTION;
+        fdef.density = 1;
+        fdef.isSensor = false;
+        fdef.friction = 0.2f;  //трение
 
         Body body = world.createBody(def);
         body.createFixture(fdef);
