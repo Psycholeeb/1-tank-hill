@@ -19,6 +19,6 @@ public class Packer {
         set.maxWidth = 2048;
 
         TexturePacker.process(set, "raw_images_ru", "android/assets/images_ru", "pack");
-        TexturePacker.process(set, "raw_images_en", "android/assets/images_en", "pack");
+        //TexturePacker.process(set, "raw_images_en", "android/assets/images_en", "pack");
     }
 }

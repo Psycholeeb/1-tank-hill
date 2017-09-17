@@ -6,294 +6,294 @@ filter: Nearest,Linear
 repeat: none
 astronaut
   rotate: false
-  xy: 1985, 692
+  xy: 1262, 203
   size: 61, 80
   orig: 61, 80
   offset: 0, 0
   index: -1
 astronaut_fall
   rotate: false
-  xy: 1987, 930
+  xy: 1987, 932
   size: 56, 90
   orig: 56, 90
   offset: 0, 0
   index: -1
 astronaut_model
   rotate: false
-  xy: 1124, 139
+  xy: 1913, 806
   size: 53, 70
   orig: 53, 70
   offset: 0, 0
   index: -1
 btr_body
   rotate: false
-  xy: 1641, 808
+  xy: 804, 167
   size: 270, 66
   orig: 270, 66
   offset: 0, 0
   index: -1
 btr_model
   rotate: false
-  xy: 804, 268
+  xy: 804, 99
   size: 270, 66
   orig: 270, 66
   offset: 0, 0
   index: -1
 btr_wheel
   rotate: false
-  xy: 717, 16
+  xy: 706, 18
   size: 40, 40
   orig: 40, 40
   offset: 0, 0
   index: -1
 done_btn
   rotate: false
-  xy: 1641, 756
+  xy: 148, 8
   size: 143, 50
   orig: 143, 50
   offset: 0, 0
   index: -1
 done_btn_down
   rotate: false
-  xy: 148, 6
+  xy: 293, 8
   size: 143, 50
   orig: 143, 50
   offset: 0, 0
   index: -1
 game_completed
   rotate: false
-  xy: 804, 730
+  xy: 804, 732
   size: 572, 144
   orig: 572, 144
   offset: 0, 0
   index: -1
 game_over
   rotate: false
-  xy: 1446, 876
+  xy: 1446, 878
   size: 539, 144
   orig: 539, 144
   offset: 0, 0
   index: -1
 intro_bg
   rotate: false
-  xy: 2, 540
+  xy: 2, 542
   size: 800, 480
   orig: 800, 480
   offset: 0, 0
   index: -1
 jeep_body
   rotate: false
-  xy: 1343, 651
+  xy: 1343, 653
   size: 270, 77
   orig: 270, 77
   offset: 0, 0
   index: -1
 jeep_model
   rotate: false
-  xy: 804, 336
+  xy: 1641, 799
   size: 270, 77
   orig: 270, 77
   offset: 0, 0
   index: -1
 jeep_wheel
   rotate: false
-  xy: 1076, 271
+  xy: 1987, 890
   size: 40, 40
   orig: 40, 40
   offset: 0, 0
   index: -1
 joystick
   rotate: false
-  xy: 1076, 313
+  xy: 1343, 551
   size: 186, 100
   orig: 186, 100
   offset: 0, 0
   index: -1
 joystick_left
   rotate: false
-  xy: 804, 166
+  xy: 1641, 697
   size: 186, 100
   orig: 186, 100
   offset: 0, 0
   index: -1
 joystick_right
   rotate: false
-  xy: 804, 64
+  xy: 1304, 449
   size: 186, 100
   orig: 186, 100
   offset: 0, 0
   index: -1
 jump1
   rotate: false
-  xy: 1124, 211
+  xy: 1076, 133
   size: 100, 100
   orig: 100, 100
   offset: 0, 0
   index: -1
 jump1_down
   rotate: false
-  xy: 1786, 706
+  xy: 1492, 449
   size: 100, 100
   orig: 100, 100
   offset: 0, 0
   index: -1
 jump2
   rotate: false
-  xy: 1489, 549
+  xy: 1531, 551
   size: 100, 100
   orig: 100, 100
   offset: 0, 0
   index: -1
 jump2_down
   rotate: false
-  xy: 1913, 774
+  xy: 1829, 697
   size: 100, 100
   orig: 100, 100
   offset: 0, 0
   index: -1
 jump_gauge_off
   rotate: false
-  xy: 992, 71
+  xy: 1168, 276
   size: 8, 7
   orig: 8, 7
   offset: 0, 0
   index: -1
 jump_gauge_on
   rotate: false
-  xy: 1591, 642
+  xy: 1168, 267
   size: 8, 7
   orig: 8, 7
   offset: 0, 0
   index: -1
 level_bg
   rotate: false
-  xy: 2, 58
+  xy: 2, 60
   size: 800, 480
   orig: 800, 480
   offset: 0, 0
   index: -1
 level_completed
   rotate: false
-  xy: 804, 876
+  xy: 804, 878
   size: 640, 144
   orig: 640, 144
   offset: 0, 0
   index: -1
 level_icon_bg
   rotate: false
-  xy: 1264, 331
+  xy: 1594, 467
   size: 82, 82
   orig: 82, 82
   offset: 0, 0
   index: -1
 level_icon_bg_down
   rotate: false
-  xy: 1888, 677
+  xy: 804, 2
   size: 95, 95
   orig: 95, 95
   offset: 0, 0
   index: -1
 level_icon_hilite
   rotate: false
-  xy: 992, 136
+  xy: 1168, 285
   size: 130, 130
   orig: 130, 130
   offset: 0, 0
   index: -1
 level_icon_lock
   rotate: false
-  xy: 1226, 270
+  xy: 901, 4
   size: 30, 41
   orig: 30, 41
   offset: 0, 0
   index: -1
 paused
   rotate: false
-  xy: 1378, 730
+  xy: 1378, 732
   size: 261, 144
   orig: 261, 144
   offset: 0, 0
   index: -1
 play_btn
   rotate: false
-  xy: 293, 6
-  size: 143, 50
-  orig: 143, 50
+  xy: 804, 235
+  size: 180, 180
+  orig: 180, 180
   offset: 0, 0
   index: -1
 play_btn_down
   rotate: false
-  xy: 438, 6
-  size: 143, 50
-  orig: 143, 50
+  xy: 986, 235
+  size: 180, 180
+  orig: 180, 180
   offset: 0, 0
   index: -1
 please_wait
   rotate: false
-  xy: 804, 584
+  xy: 804, 586
   size: 537, 144
   orig: 537, 144
   offset: 0, 0
   index: -1
 quit_btn
   rotate: false
-  xy: 992, 80
+  xy: 438, 4
   size: 132, 54
   orig: 132, 54
   offset: 0, 0
   index: -1
 quit_btn_down
   rotate: false
-  xy: 583, 2
+  xy: 572, 4
   size: 132, 54
   orig: 132, 54
   offset: 0, 0
   index: -1
 rate
   rotate: false
-  xy: 1304, 500
+  xy: 1076, 49
   size: 82, 82
   orig: 82, 82
   offset: 0, 0
   index: -1
 rate_down
   rotate: false
-  xy: 1304, 416
+  xy: 1178, 201
   size: 82, 82
   orig: 82, 82
   offset: 0, 0
   index: -1
 retry_btn
   rotate: false
-  xy: 2, 6
+  xy: 2, 8
   size: 144, 50
   orig: 144, 50
   offset: 0, 0
   index: -1
 retry_btn_down
   rotate: false
-  xy: 1343, 599
+  xy: 901, 47
   size: 144, 50
   orig: 144, 50
   offset: 0, 0
   index: -1
 share
   rotate: false
-  xy: 1388, 515
+  xy: 1178, 117
   size: 82, 82
   orig: 82, 82
   offset: 0, 0
   index: -1
 share_down
   rotate: false
-  xy: 1388, 431
+  xy: 1160, 33
   size: 82, 82
   orig: 82, 82
   offset: 0, 0
   index: -1
 title
   rotate: false
-  xy: 804, 415
+  xy: 804, 417
   size: 498, 167
   orig: 498, 167
   offset: 0, 0
