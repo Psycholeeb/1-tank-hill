@@ -37,7 +37,7 @@ public class Intro extends StageGame{
         title.setY(getHeight());
 
         MoveByAction move = new MoveByAction();           //анимация заголовка сверху вниз
-        move.setAmount(0, -title.getHeight()*1.5f);
+        move.setAmount(0, -title.getHeight()*1.1f);
         move.setDuration(0.4f);
         move.setInterpolation(Interpolation.swingOut);
         move.setActor(title);
@@ -51,7 +51,7 @@ public class Intro extends StageGame{
 
         addChild(playBtn);
         centerActorXY(playBtn);
-        playBtn.moveBy(0, -60);
+        playBtn.moveBy(0, -145);
 
         AlphaAction alphaAction = new AlphaAction();
         alphaAction.setActor(playBtn);

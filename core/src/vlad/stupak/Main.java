@@ -85,7 +85,7 @@ public class Main extends Game {
 		assetManager.setLoader(BitmapFont.class, ".ttf", new FreetypeFontLoader(resolver));
 
 		FreetypeFontLoader.FreeTypeFontLoaderParameter sizeParams = new FreetypeFontLoader.FreeTypeFontLoaderParameter();
-		sizeParams.fontFileName = "fonts/GROBOLD.ttf";
+		sizeParams.fontFileName = "fonts/Oswald-Bold.ttf";
 		sizeParams.fontParameters.size = 40;
 
 		assetManager.load("font40.ttf", BitmapFont.class, sizeParams);
