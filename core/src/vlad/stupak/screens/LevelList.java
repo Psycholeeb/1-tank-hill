@@ -3,6 +3,7 @@ package vlad.stupak.screens;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
@@ -31,7 +32,7 @@ public class LevelList  extends StageGame {
         container = new Group();
         addChild(container);
 
-        int row = 4, col = 4;
+        int row = 2, col = 5;
         float space = 20;
 
         float iconWidht = 0, iconHeight = 0;
@@ -72,8 +73,8 @@ public class LevelList  extends StageGame {
         container.setWidth(col * iconWidht + (col - 1) * space);
         container.setHeight(row * iconHeight + (row - 1) * space);
 
-        container.setX(30);
-        container.setY(getHeight() - container.getHeight() - 30);
+        container.setX((container.getWidth()/100)*23);
+        container.setY((container.getHeight()/100)*65);
 
         container.setColor(1,1,1,0);
         container.addAction(Actions.alpha(1, 0.4f));

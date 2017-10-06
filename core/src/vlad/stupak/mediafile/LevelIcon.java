@@ -46,7 +46,6 @@ public class LevelIcon extends Group{
 
         Label.LabelStyle style = new Label.LabelStyle();
         style.font = Main.font40;
-        style.fontColor = new Color(0x000000ff);
 
         label = new Label(id + "", style);
         label.setX((getWidth() - label.getWidth())/2);
