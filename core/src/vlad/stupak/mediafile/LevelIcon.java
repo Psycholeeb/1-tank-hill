@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Align;
 
 import vlad.stupak.Main;
 
@@ -23,6 +24,7 @@ public class LevelIcon extends Group{
         this.id = id;
 
         hiliteImg = new Image(Main.atlas.findRegion("level_icon_hilite"));
+        hiliteImg.setOrigin(hiliteImg.getWidth()/2, hiliteImg.getHeight()/2);
         addActor(hiliteImg);
         hiliteImg.setVisible(false);
 
@@ -50,6 +52,7 @@ public class LevelIcon extends Group{
         label = new Label(id + "", style);
         label.setX((getWidth() - label.getWidth())/2);
         label.setY((getHeight() - label.getHeight())/2);
+        label.setAlignment(Align.center);
 
         setLock(true);
 
@@ -94,6 +97,7 @@ public class LevelIcon extends Group{
     }
 
     public void setHilite() {
+        bg.setVisible(false);
         hiliteImg.setVisible(true);
         isHilited = true;
     }
@@ -101,24 +105,24 @@ public class LevelIcon extends Group{
     @Override
     public void act(float delta) {
         if (isHilited) {
-            float alpha = hiliteImg.getColor().a;
+            float scaleParam = hiliteImg.getScaleX();
 
             if (alphaUp) {
-                alpha += delta * 4;
-                if (alpha >= 1) {
-                    alpha = 1;
+                scaleParam += delta * 0.6;
+                if (scaleParam >= 1) {
+                    scaleParam = 1;
                     alphaUp = false;
                 }
             } else {
-                alpha -= delta * 4;
-                if (alpha < 0) {
-                    alpha = 0;
+                scaleParam -= delta * 0.6;
+                if (scaleParam < 0.8) {
+                    scaleParam = (float) 0.8;
                     alphaUp = true;
                 }
             }
-            hiliteImg.setColor(1,1,1,alpha);
+            hiliteImg.setScale(scaleParam);
+            label.setFontScale(scaleParam);
         }
-
         super.act(delta);
     }
 }
