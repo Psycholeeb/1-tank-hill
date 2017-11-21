@@ -11,6 +11,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 
+import org.omg.CORBA.Bounds;
+
 import vlad.stupak.Main;
 
 public class LevelIcon extends Group{
@@ -99,7 +101,7 @@ public class LevelIcon extends Group{
     public void setHilite() {
         bg.setVisible(false);
         hiliteImg.setVisible(true);
-        isHilited = true;
+        //isHilited = true;
     }
 
     @Override
