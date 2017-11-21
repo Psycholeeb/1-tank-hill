@@ -40,9 +40,9 @@ import vlad.stupak.Setting;
 import vlad.stupak.controls.CButton;
 import vlad.stupak.controls.JoyStick;
 import vlad.stupak.controls.JumpGauge;
+import vlad.stupak.player.Buggies;
 import vlad.stupak.player.IBody;
 import vlad.stupak.player.Btr;
-import vlad.stupak.player.Jeep;
 import vlad.stupak.player.Transport;
 import vlad.stupak.player.UserData;
 import vlad.stupak.screens.LevelCompletedScreen;
@@ -97,8 +97,8 @@ public class Level extends StageGame{
 
     private Transport currentCar;
     private Btr btr;
-    private Jeep jeep;
-    private int selectCar = 1;
+    private Buggies buggies;
+    private int selectCar = 2;
 
     public Level(String directory) {
         this.directory = directory;
@@ -417,11 +417,11 @@ public class Level extends StageGame{
                         stage.addActor(currentCar);
                         break;
                     case 2:
-                        jeep = new Jeep(this);
-                        currentCar = jeep;
+                        buggies = new Buggies(this);
+                        currentCar = buggies;
                         currentCar.setPosition(rect.x, rect.y);
                         addChild(currentCar);
-                        addBody(jeep);
+                        addBody(buggies);
                         stage.addActor(currentCar);
                         break;
                     default:

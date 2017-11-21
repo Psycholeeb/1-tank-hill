@@ -130,16 +130,16 @@ public class Transport extends ActorClip{
         float maxAV = Setting.SPEED;
 
         if (moveFrontKey) {
-            if (-rearWheel2.getAngularVelocity() < maxAV) {
-                rearWheel2.applyTorque(-torque, true);
+            if (-frontWheel.getAngularVelocity() < maxAV) {
+                frontWheel.applyTorque(-torque, true);
             }
             if (-rearWheel.getAngularVelocity() < maxAV) {
                 rearWheel.applyTorque(-torque, true);
             }
         }
         if (moveBackKey) {
-            if (rearWheel2.getAngularVelocity() < maxAV) {
-                rearWheel2.applyTorque(torque, true);
+            if (frontWheel.getAngularVelocity() < maxAV) {
+                frontWheel.applyTorque(torque, true);
             }
             if (rearWheel.getAngularVelocity() < maxAV) {
                 rearWheel.applyTorque(torque, true);

@@ -15,7 +15,7 @@ import com.boontaran.douglasPeucker.DouglasPeucker;
 import vlad.stupak.Main;
 import vlad.stupak.levels.Level;
 
-public class Jeep extends Transport implements IBody{
+public class Buggies extends Transport implements IBody{
 
     private Image roverImg, frontWheelImage, rearWheelImg;
 
@@ -32,10 +32,10 @@ public class Jeep extends Transport implements IBody{
     private Level level;
 
 
-    public Jeep(Level level) {
+    public Buggies(Level level) {
         this.level = level;
 
-        roverImg = new Image(Main.atlas.findRegion("jeep_body"));
+        roverImg = new Image(Main.atlas.findRegion("buggies_body"));
         childs.addActor(roverImg);
         roverImg.setX(-roverImg.getWidth()/2);
     }
@@ -48,7 +48,7 @@ public class Jeep extends Transport implements IBody{
         def.type = BodyDef.BodyType.DynamicBody;
         def.linearDamping = 0;
 
-        float[] vertices = traceOutline("jeep_model");
+        float[] vertices = traceOutline("buggies_model");
         Vector2 centroid = Level.calculateCentroid(vertices);
 
         int i = 0;
@@ -66,11 +66,11 @@ public class Jeep extends Transport implements IBody{
 
 
         // FRONT WHEEL
-        frontWheel = createWheel(world, 18 / Level.WORLD_SCALE);
-        frontWheel.setTransform(rover.getPosition().x + 75 / Level.WORLD_SCALE, rover.getPosition().y + 1/Level.WORLD_SCALE, 0);
+        frontWheel = createWheel(world, 28 / Level.WORLD_SCALE);
+        frontWheel.setTransform(rover.getPosition().x + 80/ Level.WORLD_SCALE, rover.getPosition().y - 35/Level.WORLD_SCALE, 0);
 
         frontWheelCont = new Group();
-        frontWheelImage = new Image(Main.atlas.findRegion("jeep_wheel"));
+        frontWheelImage = new Image(Main.atlas.findRegion("buggies_wheel"));
 
         frontWheelCont.addActor(frontWheelImage);
         frontWheelImage.setX(-frontWheelImage.getWidth()/2);
@@ -87,13 +87,13 @@ public class Jeep extends Transport implements IBody{
         frontWheelJoint = world.createJoint(rDef);
 
         // REAR WHEEL
-        rearWheel = createWheel(world, 18 / Level.WORLD_SCALE);
-        rearWheel.setTransform(rover.getPosition().x - 83 / Level.WORLD_SCALE, rover.getPosition().y + 1/Level.WORLD_SCALE, 0);
+        rearWheel = createWheel(world, 28 / Level.WORLD_SCALE);
+        rearWheel.setTransform(rover.getPosition().x - 93 / Level.WORLD_SCALE, rover.getPosition().y - 35/Level.WORLD_SCALE, 0);
         rDef = new RevoluteJointDef();
 
 
         rearWheelCont = new Group();
-        rearWheelImg = new Image(Main.atlas.findRegion("jeep_wheel"));
+        rearWheelImg = new Image(Main.atlas.findRegion("buggies_wheel"));
         rearWheelCont.addActor(rearWheelImg);
         rearWheelImg.setX(-rearWheelImg.getWidth()/2);
         rearWheelImg.setY(-rearWheelImg.getHeight()/2);
