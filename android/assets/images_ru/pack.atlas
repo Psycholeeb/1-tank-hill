@@ -20,7 +20,7 @@ astronaut_fall
   index: -1
 astronaut_model
   rotate: false
-  xy: 1129, 206
+  xy: 1225, 206
   size: 53, 70
   orig: 53, 70
   offset: 0, 0
@@ -62,7 +62,7 @@ buggies_model
   index: -1
 buggies_wheel
   rotate: false
-  xy: 1045, 132
+  xy: 1225, 144
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
@@ -132,35 +132,35 @@ jump1
   index: -1
 jump1_down
   rotate: false
-  xy: 1366, 512
+  xy: 1232, 278
   size: 100, 100
   orig: 100, 100
   offset: 0, 0
   index: -1
 jump2
   rotate: false
-  xy: 1232, 274
+  xy: 1232, 380
   size: 100, 100
   orig: 100, 100
   offset: 0, 0
   index: -1
 jump2_down
   rotate: false
-  xy: 1468, 512
+  xy: 1366, 512
   size: 100, 100
   orig: 100, 100
   offset: 0, 0
   index: -1
 jump_gauge_off
   rotate: false
-  xy: 1707, 617
+  xy: 1970, 867
   size: 8, 7
   orig: 8, 7
   offset: 0, 0
   index: -1
 jump_gauge_on
   rotate: false
-  xy: 1970, 867
+  xy: 772, 531
   size: 8, 7
   orig: 8, 7
   offset: 0, 0
@@ -181,28 +181,35 @@ level_completed
   index: -1
 level_icon_bg
   rotate: false
-  xy: 1570, 518
+  xy: 1468, 518
   size: 94, 94
   orig: 94, 94
   offset: 0, 0
   index: -1
 level_icon_bg_down
   rotate: false
-  xy: 1232, 376
-  size: 104, 104
-  orig: 104, 104
+  xy: 1564, 518
+  size: 94, 94
+  orig: 94, 94
   offset: 0, 0
   index: -1
-level_icon_hilite
+level_icon_current
   rotate: false
-  xy: 1338, 360
+  xy: 1841, 530
+  size: 94, 94
+  orig: 94, 94
+  offset: 0, 0
+  index: -1
+level_icon_current_down
+  rotate: false
+  xy: 961, 166
   size: 94, 94
   orig: 94, 94
   offset: 0, 0
   index: -1
 level_icon_lock
   rotate: false
-  xy: 1334, 264
+  xy: 961, 70
   size: 94, 94
   orig: 94, 94
   offset: 0, 0
@@ -244,21 +251,21 @@ quit_btn
   index: -1
 quit_btn_down
   rotate: false
-  xy: 1366, 456
+  xy: 1707, 570
   size: 132, 54
   orig: 132, 54
   offset: 0, 0
   index: -1
 rate
   rotate: false
-  xy: 1434, 372
+  xy: 1057, 194
   size: 82, 82
   orig: 82, 82
   offset: 0, 0
   index: -1
 rate_down
   rotate: false
-  xy: 961, 178
+  xy: 1057, 110
   size: 82, 82
   orig: 82, 82
   offset: 0, 0
@@ -279,14 +286,14 @@ retry_btn_down
   index: -1
 share
   rotate: false
-  xy: 961, 94
+  xy: 1141, 194
   size: 82, 82
   orig: 82, 82
   offset: 0, 0
   index: -1
 share_down
   rotate: false
-  xy: 1045, 194
+  xy: 1141, 110
   size: 82, 82
   orig: 82, 82
   offset: 0, 0
