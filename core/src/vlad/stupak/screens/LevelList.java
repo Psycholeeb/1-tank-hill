@@ -26,7 +26,7 @@ public class LevelList  extends StageGame {
     private int selectedLevelId = 0;
 
     public LevelList() {
-        Image bg = new Image(Main.atlas.findRegion("intro_bg"));
+        Image bg = new Image(Main.atlas.findRegion("intro_bg_low"));
         addBackground(bg, true, false);
 
         container = new Group();
@@ -79,25 +79,39 @@ public class LevelList  extends StageGame {
         container.setColor(1,1,1,0);
         container.addAction(Actions.alpha(1, 0.4f));
 
-        ImageButton rateBtn = new ImageButton(new TextureRegionDrawable(Main.atlas.findRegion("rate")),
+        /*ImageButton rateBtn = new ImageButton(new TextureRegionDrawable(Main.atlas.findRegion("rate")),
                 new TextureRegionDrawable(Main.atlas.findRegion("rate_down")));
 
         addChild(rateBtn);
-        rateBtn.setX(getWidth() - rateBtn.getWidth() - 20);
-        rateBtn.setY(getHeight() - rateBtn.getHeight() - 20);
+        rateBtn.setX(10);
+        rateBtn.setY(getHeight() - rateBtn.getHeight() - 10);
 
         rateBtn.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 call(ON_OPEN_MARKET);
             }
+        });*/
+
+        ImageButton settingsBtn = new ImageButton(new TextureRegionDrawable(Main.atlas.findRegion("settings_btn")),
+                new TextureRegionDrawable(Main.atlas.findRegion("settings_btn_down")));
+
+        addChild(settingsBtn);
+        settingsBtn.setX(10);
+        settingsBtn.setY(getHeight() - settingsBtn.getHeight() - 10);
+
+        settingsBtn.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                return;
+            }
         });
 
         ImageButton shareBtn = new ImageButton(new TextureRegionDrawable(Main.atlas.findRegion("share")),
                 new TextureRegionDrawable(Main.atlas.findRegion("share_down")));
         addChild(shareBtn);
-        shareBtn.setX(getWidth() - shareBtn.getWidth() - 20);
-        shareBtn.setY(20);
+        shareBtn.setX(10 + settingsBtn.getWidth() + 10);
+        shareBtn.setY(getHeight() - shareBtn.getHeight() - 10);
         shareBtn.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
