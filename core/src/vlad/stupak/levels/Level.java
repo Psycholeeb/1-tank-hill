@@ -37,9 +37,9 @@ import com.boontaran.games.tiled.TileLayer;
 
 import vlad.stupak.Main;
 import vlad.stupak.Setting;
-import vlad.stupak.controls.CButton;
-import vlad.stupak.controls.JoyStick;
-import vlad.stupak.controls.JumpGauge;
+import vlad.stupak.controls.JumpButtonHandler;
+import vlad.stupak.controls.LeftRightButtons;
+import vlad.stupak.controls.JumpIndicator;
 import vlad.stupak.player.Buggies;
 import vlad.stupak.player.IBody;
 import vlad.stupak.player.Btr;
@@ -68,7 +68,7 @@ public class Level extends StageGame{
 
     private int state = 1;
 
-    private JumpGauge jumpGauge;
+    private JumpIndicator jumpIndicator;
 
     private int mapWidth, mapHeight, tilePixelWidth, tilePixelHeight, levelWidth, levelHeight;
 
@@ -76,8 +76,8 @@ public class Level extends StageGame{
 
     private Image pleaseWait;
 
-    private JoyStick joyStick;
-    private CButton jumpBackBtn, jumpForwardBtn;
+    private LeftRightButtons leftRightButtons;
+    private JumpButtonHandler jumpBackBtn, jumpForwardBtn;
 
     private String musicName;
     private boolean musicHasLoaded;
@@ -154,14 +154,14 @@ public class Level extends StageGame{
             world.step(1f / 60, 10, 10);
         }
 
-        jumpGauge = new JumpGauge();
-        addOverlayChild(jumpGauge);
+        jumpIndicator = new JumpIndicator();
+        addOverlayChild(jumpIndicator);
 
-        joyStick = new JoyStick(mmToPx(10));
-        addOverlayChild(joyStick);
-        joyStick.setPosition(15, 15);
+        leftRightButtons = new LeftRightButtons(mmToPx(10));
+        addOverlayChild(leftRightButtons);
+        leftRightButtons.setPosition(15, 15);
 
-        jumpBackBtn = new CButton(
+        jumpBackBtn = new JumpButtonHandler(
                 new Image(Main.atlas.findRegion("jump1")),
                 new Image(Main.atlas.findRegion("jump1_down")),
                 mmToPx(10)
@@ -169,7 +169,7 @@ public class Level extends StageGame{
 
         addOverlayChild(jumpBackBtn);
 
-        jumpForwardBtn = new CButton(
+        jumpForwardBtn = new JumpButtonHandler(
                 new Image(Main.atlas.findRegion("jump2")),
                 new Image(Main.atlas.findRegion("jump2_down")),
                 mmToPx(10)
@@ -185,7 +185,7 @@ public class Level extends StageGame{
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 if (state == PLAY) {
                     if (currentCar.isTouchedGround()) {
-                        jumpGauge.start();
+                        jumpIndicator.start();
                         return true;
                     }
                 }
@@ -195,7 +195,7 @@ public class Level extends StageGame{
 
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                float jumpValue = jumpGauge.getValue();
+                float jumpValue = jumpIndicator.getValue();
                 currentCar.jumpBack(jumpValue);
             }
         });
@@ -205,7 +205,7 @@ public class Level extends StageGame{
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 if (state == PLAY) {
                     if (currentCar.isTouchedGround()) {
-                        jumpGauge.start();
+                        jumpIndicator.start();
                         return true;
                     }
                 }
@@ -215,7 +215,7 @@ public class Level extends StageGame{
 
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                float jumpValue = jumpGauge.getValue();
+                float jumpValue = jumpIndicator.getValue();
                 currentCar.jumpForward(jumpValue);
             }
         });
@@ -506,12 +506,12 @@ public class Level extends StageGame{
     }
 
     private void hideButtons() {
-        joyStick.setVisible(false);
+        leftRightButtons.setVisible(false);
         jumpBackBtn.setVisible(false);
         jumpForwardBtn.setVisible(false);
     }
     private void showButtons() {
-        joyStick.setVisible(true);
+        leftRightButtons.setVisible(true);
         jumpBackBtn.setVisible(true);
         jumpForwardBtn.setVisible(true);
     }
@@ -732,7 +732,7 @@ public class Level extends StageGame{
         addOverlayChild(levelFailedScreen);
         levelFailedScreen.start();
 
-        jumpGauge.setVisible(false);
+        jumpIndicator.setVisible(false);
         hideButtons();
 
         call(ON_FAILED);
@@ -809,15 +809,15 @@ public class Level extends StageGame{
             return;
         }
 
-        boolean lFront = joyStick.isRight();
-        boolean lBack = joyStick.isLeft();
+        boolean lFront = leftRightButtons.isRight();
+        boolean lBack = leftRightButtons.isLeft();
 
         if (state == PLAY) {
 
             currentCar.onKey(lFront, lBack);
 
-            jumpGauge.setX(getStageToOverlayX(currentCar.getX()));
-            jumpGauge.setY(getStageToOverlayY(currentCar.getY() + 67));
+            jumpIndicator.setX(getStageToOverlayX(currentCar.getX()));
+            jumpIndicator.setY(getStageToOverlayY(currentCar.getY() + 67));
 
             updateCamera();
 

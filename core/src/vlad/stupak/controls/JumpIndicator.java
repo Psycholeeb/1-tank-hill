@@ -8,14 +8,14 @@ import com.badlogic.gdx.utils.Array;
 
 import vlad.stupak.Main;
 
-public class JumpGauge  extends Group{
+public class JumpIndicator extends Group{
 
     private Array<Image> offs, ons;
     private final float TIME = 0.5f;
     private float time = 0;
     private boolean counting = false;
 
-    public JumpGauge() {
+    public JumpIndicator() {
         setTouchable(Touchable.disabled);
         Image box;
 

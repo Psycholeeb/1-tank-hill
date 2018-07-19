@@ -6,7 +6,7 @@ filter: Nearest,Linear
 repeat: none
 astronaut
   rotate: false
-  xy: 1265, 502
+  xy: 961, 84
   size: 61, 80
   orig: 61, 80
   offset: 0, 0
@@ -20,7 +20,7 @@ astronaut_fall
   index: -1
 astronaut_model
   rotate: false
-  xy: 1983, 440
+  xy: 1223, 375
   size: 53, 70
   orig: 53, 70
   offset: 0, 0
@@ -48,21 +48,35 @@ btr_wheel
   index: -1
 buggies_body
   rotate: false
-  xy: 772, 266
-  size: 270, 102
-  orig: 270, 102
+  xy: 772, 268
+  size: 257, 100
+  orig: 257, 100
   offset: 0, 0
   index: -1
 buggies_model
   rotate: false
-  xy: 772, 162
-  size: 270, 102
-  orig: 270, 102
+  xy: 772, 166
+  size: 257, 100
+  orig: 257, 100
+  offset: 0, 0
+  index: -1
+buggies_spring
+  rotate: false
+  xy: 1035, 463
+  size: 18, 51
+  orig: 18, 51
+  offset: 0, 0
+  index: -1
+buggies_spring_model
+  rotate: false
+  xy: 1343, 677
+  size: 18, 51
+  orig: 18, 51
   offset: 0, 0
   index: -1
 buggies_wheel
   rotate: false
-  xy: 1979, 378
+  xy: 1693, 388
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
@@ -111,49 +125,49 @@ intro_bg_low
   index: -1
 joystick
   rotate: false
-  xy: 961, 60
+  xy: 1035, 345
   size: 186, 100
   orig: 186, 100
   offset: 0, 0
   index: -1
 joystick_left
   rotate: false
-  xy: 1343, 512
+  xy: 1031, 243
   size: 186, 100
   orig: 186, 100
   offset: 0, 0
   index: -1
 joystick_right
   rotate: false
-  xy: 1531, 512
+  xy: 1031, 141
   size: 186, 100
   orig: 186, 100
   offset: 0, 0
   index: -1
 jump1
   rotate: false
-  xy: 1719, 512
+  xy: 1265, 482
   size: 100, 100
   orig: 100, 100
   offset: 0, 0
   index: -1
 jump1_down
   rotate: false
-  xy: 1923, 512
+  xy: 1469, 512
   size: 100, 100
   orig: 100, 100
   offset: 0, 0
   index: -1
 jump2
   rotate: false
-  xy: 1821, 512
+  xy: 1367, 512
   size: 100, 100
   orig: 100, 100
   offset: 0, 0
   index: -1
 jump2_down
   rotate: false
-  xy: 1265, 400
+  xy: 1571, 512
   size: 100, 100
   orig: 100, 100
   offset: 0, 0
@@ -167,7 +181,7 @@ jump_gauge_off
   index: -1
 jump_gauge_on
   rotate: false
-  xy: 1343, 721
+  xy: 1987, 921
   size: 8, 7
   orig: 8, 7
   offset: 0, 0
@@ -188,35 +202,35 @@ level_completed
   index: -1
 level_icon_bg
   rotate: false
-  xy: 1367, 416
+  xy: 1673, 518
   size: 94, 94
   orig: 94, 94
   offset: 0, 0
   index: -1
 level_icon_bg_down
   rotate: false
-  xy: 1463, 416
+  xy: 1769, 518
   size: 94, 94
   orig: 94, 94
   offset: 0, 0
   index: -1
 level_icon_current
   rotate: false
-  xy: 1559, 416
+  xy: 1865, 518
   size: 94, 94
   orig: 94, 94
   offset: 0, 0
   index: -1
 level_icon_current_down
   rotate: false
-  xy: 1655, 416
+  xy: 1501, 416
   size: 94, 94
   orig: 94, 94
   offset: 0, 0
   index: -1
 level_icon_lock
   rotate: false
-  xy: 1751, 416
+  xy: 1597, 416
   size: 94, 94
   orig: 94, 94
   offset: 0, 0
@@ -230,7 +244,7 @@ paused
   index: -1
 play_btn
   rotate: false
-  xy: 772, 25
+  xy: 772, 29
   size: 187, 135
   orig: 187, 135
   offset: 0, 0
@@ -258,21 +272,21 @@ quit_btn
   index: -1
 quit_btn_down
   rotate: false
-  xy: 961, 4
+  xy: 1367, 456
   size: 132, 54
   orig: 132, 54
   offset: 0, 0
   index: -1
 rate
   rotate: false
-  xy: 1915, 380
+  xy: 961, 20
   size: 62, 62
   orig: 62, 62
   offset: 0, 0
   index: -1
 rate_down
   rotate: false
-  xy: 1035, 383
+  xy: 1979, 618
   size: 62, 62
   orig: 62, 62
   offset: 0, 0
@@ -293,28 +307,28 @@ retry_btn_down
   index: -1
 settings_btn
   rotate: false
-  xy: 1979, 614
+  xy: 1693, 450
   size: 66, 66
   orig: 66, 66
   offset: 0, 0
   index: -1
 settings_btn_down
   rotate: false
-  xy: 1847, 444
+  xy: 1761, 450
   size: 66, 66
   orig: 66, 66
   offset: 0, 0
   index: -1
 share
   rotate: false
-  xy: 1915, 444
+  xy: 1829, 450
   size: 66, 66
   orig: 66, 66
   offset: 0, 0
   index: -1
 share_down
   rotate: false
-  xy: 1847, 376
+  xy: 1897, 450
   size: 66, 66
   orig: 66, 66
   offset: 0, 0

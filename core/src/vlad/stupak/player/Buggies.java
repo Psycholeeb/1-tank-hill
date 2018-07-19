@@ -17,27 +17,21 @@ import vlad.stupak.levels.Level;
 
 public class Buggies extends Transport implements IBody{
 
-    private Image roverImg, frontWheelImage, rearWheelImg;
-
+    private Image buggiesImg, frontWheelImage, rearWheelImg;
     private Group frontWheelCont, rearWheelCont;
-
-    private Body rover, frontWheel, rearWheel;
-
+    private Body buggiesBody, frontWheelBody, rearWheelBody;
     private Joint frontWheelJoint, rearWheelJoint;
-
     private World world;
+    private final int CLEARENCE = -20;
+
 
     private float jumpWait = 0;
 
-    private Level level;
-
-
     public Buggies(Level level) {
-        this.level = level;
-
-        roverImg = new Image(Main.atlas.findRegion("buggies_body"));
-        childs.addActor(roverImg);
-        roverImg.setX(-roverImg.getWidth()/2);
+        buggiesImg = new Image(Main.atlas.findRegion("buggies_body"));
+        childs.addActor(buggiesImg);
+        buggiesImg.setX(-buggiesImg.getWidth()/2);
+        buggiesImg.setY(CLEARENCE);
     }
 
     @Override
@@ -61,13 +55,13 @@ public class Buggies extends Transport implements IBody{
         vertices = DouglasPeucker.simplify(vertices, 4);
         Level.scaleToWorld(vertices);
         Array<Polygon> triangles = Level.getTriangles(new Polygon(vertices));
-        rover = createBodyFromTriangles(world, triangles);
-        rover.setTransform((getX()) / Level.WORLD_SCALE+20, (getY()) / Level.WORLD_SCALE, 0);
+        buggiesBody = createBodyFromTriangles(world, triangles);
+        buggiesBody.setTransform((getX()) / Level.WORLD_SCALE, (getY()) / Level.WORLD_SCALE, 0);
 
 
         // FRONT WHEEL
-        frontWheel = createWheel(world, 28 / Level.WORLD_SCALE);
-        frontWheel.setTransform(rover.getPosition().x + 80/ Level.WORLD_SCALE, rover.getPosition().y - 35/Level.WORLD_SCALE, 0);
+        frontWheelBody = createWheel(world, 28 / Level.WORLD_SCALE);
+        frontWheelBody.setTransform(buggiesBody.getPosition().x + 92/ Level.WORLD_SCALE, buggiesBody.getPosition().y - 10/Level.WORLD_SCALE, 0);
 
         frontWheelCont = new Group();
         frontWheelImage = new Image(Main.atlas.findRegion("buggies_wheel"));
@@ -80,15 +74,15 @@ public class Buggies extends Transport implements IBody{
 
         UserData data = new UserData();
         data.actor = frontWheelCont;
-        frontWheel.setUserData(data);
+        frontWheelBody.setUserData(data);
 
         RevoluteJointDef rDef = new RevoluteJointDef();
-        rDef.initialize(rover, frontWheel, new Vector2(frontWheel.getPosition()));
+        rDef.initialize(buggiesBody, frontWheelBody, new Vector2(frontWheelBody.getPosition()));
         frontWheelJoint = world.createJoint(rDef);
 
         // REAR WHEEL
-        rearWheel = createWheel(world, 28 / Level.WORLD_SCALE);
-        rearWheel.setTransform(rover.getPosition().x - 93 / Level.WORLD_SCALE, rover.getPosition().y - 35/Level.WORLD_SCALE, 0);
+        rearWheelBody = createWheel(world, 28 / Level.WORLD_SCALE);
+        rearWheelBody.setTransform(buggiesBody.getPosition().x - 87 / Level.WORLD_SCALE, buggiesBody.getPosition().y - 15/Level.WORLD_SCALE, 0);
         rDef = new RevoluteJointDef();
 
 
@@ -101,16 +95,16 @@ public class Buggies extends Transport implements IBody{
         getParent().addActor(rearWheelCont);
         data = new UserData();
         data.actor = rearWheelCont;
-        rearWheel.setUserData(data);
+        rearWheelBody.setUserData(data);
 
-        rDef.initialize(rover, rearWheel, new Vector2(rearWheel.getPosition()));
+        rDef.initialize(buggiesBody, rearWheelBody, new Vector2(rearWheelBody.getPosition()));
         rearWheelJoint = world.createJoint(rDef);
 
-        super.rearWheel = rearWheel;
-        super.frontWheel = frontWheel;
-        super.rover = rover;
+        super.rearWheel = rearWheelBody;
+        super.frontWheel = frontWheelBody;
+        super.rover = buggiesBody;
 
-        return rover;
+        return buggiesBody;
     }
 
     @Override

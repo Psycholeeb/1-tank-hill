@@ -11,7 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import vlad.stupak.Main;
 
-public class JoyStick extends Group{
+public class LeftRightButtons extends Group{
 
     private Image idle, right, left;
     private static final int IDLE = 0;
@@ -20,7 +20,7 @@ public class JoyStick extends Group{
     private int direction;
 
 
-    public JoyStick(float minHeight) {
+    public LeftRightButtons(float minHeight) {
         idle = new Image(Main.atlas.findRegion("joystick"));
         addActor(idle);
 
