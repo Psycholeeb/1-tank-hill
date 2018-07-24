@@ -6,7 +6,7 @@ public class Setting {
 
 
     public static final float GRAVITY = 40;  //8 гравитация
-    public static final float JUMP_IMPULSE = 300;
+    public static final float JUMP_IMPULSE = 1000;
     public static final float WHEEL_TORQUE = 150;  //50 крутящий момент
     public static final float SPEED = 80;
 

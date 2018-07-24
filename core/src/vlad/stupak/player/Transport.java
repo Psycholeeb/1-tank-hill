@@ -11,6 +11,7 @@ import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.Joint;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.boontaran.games.ActorClip;
@@ -37,12 +38,12 @@ public class Transport extends ActorClip{
 
     public Body createWheel(World world, float rad, float restitution, float friction, float density) {
 
-        BodyDef def = new BodyDef();
-        def.type = BodyDef.BodyType.DynamicBody;
-        def.linearDamping = 0;
-        def.angularDamping = 1f;
+        BodyDef wheelDef = new BodyDef();
+        wheelDef.type = BodyDef.BodyType.DynamicBody;
+        wheelDef.linearDamping = 0;
+        wheelDef.angularDamping = 1f;
 
-        Body body = world.createBody(def);
+        Body wheelBody = world.createBody(wheelDef);
 
         FixtureDef fDef = new FixtureDef();
         CircleShape shape = new CircleShape();
@@ -53,10 +54,33 @@ public class Transport extends ActorClip{
         fDef.friction = friction;
         fDef.density = density;
 
-        body.createFixture(fDef);
+        wheelBody.createFixture(fDef);
         shape.dispose();
 
-        return body;
+        return wheelBody;
+    }
+
+    public Body createSpring(World world, float restitution, float friction, float density) {
+
+        BodyDef springDef = new BodyDef();
+        springDef.type = BodyDef.BodyType.DynamicBody;
+        springDef.linearDamping = 0;
+        springDef.angularDamping = 1f;
+
+        Body springBody = world.createBody(springDef);
+
+        FixtureDef fDef = new FixtureDef();
+        PolygonShape shape = new PolygonShape();
+
+        fDef.shape = shape;
+        fDef.restitution = restitution;
+        fDef.friction = friction;
+        fDef.density = density;
+
+        springBody.createFixture(fDef);
+        shape.dispose();
+
+        return springBody;
     }
 
     public float[] traceOutline(String regionName) {

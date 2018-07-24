@@ -23,6 +23,8 @@ public class BuggieCar extends Transport implements IBody{
     private Body buggiesBody, frontWheelBody, rearWheelBody;
     private Joint frontWheelJoint, rearWheelJoint;
     private World world;
+    private RevoluteJointDef rDef;
+    private UserData data;
     private final int CLEARENCE = -20;
     private final float RESTITUTION_WHEEL = 0.3f; // упругость, 0 не отскочит, 1 отскочит
     private final float FRICTION_WHEEL = 0.8f; // трение от 0 до 1
@@ -62,8 +64,17 @@ public class BuggieCar extends Transport implements IBody{
         buggiesBody = createBodyFromTriangles(world, triangles);
         buggiesBody.setTransform((getX()) / Level.WORLD_SCALE, (getY()) / Level.WORLD_SCALE, 0);
 
+        createFrontWheel();
+        createRearWheel();
 
-        // FRONT WHEEL
+        super.rearWheel = rearWheelBody;
+        super.frontWheel = frontWheelBody;
+        super.rover = buggiesBody;
+
+        return buggiesBody;
+    }
+
+    private void createFrontWheel() {
         frontWheelBody = createWheel(world, 28 / Level.WORLD_SCALE, RESTITUTION_WHEEL, FRICTION_WHEEL, DENSITY_WHEEL);
         frontWheelBody.setTransform(buggiesBody.getPosition().x + 92/ Level.WORLD_SCALE, buggiesBody.getPosition().y - 20/Level.WORLD_SCALE, 0);
 
@@ -76,15 +87,16 @@ public class BuggieCar extends Transport implements IBody{
 
         getParent().addActor(frontWheelCont);
 
-        UserData data = new UserData();
+        data = new UserData();
         data.actor = frontWheelCont;
         frontWheelBody.setUserData(data);
 
-        RevoluteJointDef rDef = new RevoluteJointDef();
+        rDef = new RevoluteJointDef();
         rDef.initialize(buggiesBody, frontWheelBody, new Vector2(frontWheelBody.getPosition()));
         frontWheelJoint = world.createJoint(rDef);
+    }
 
-        // REAR WHEEL
+    private void createRearWheel() {
         rearWheelBody = createWheel(world, 28 / Level.WORLD_SCALE, RESTITUTION_WHEEL, FRICTION_WHEEL, DENSITY_WHEEL);
         rearWheelBody.setTransform(buggiesBody.getPosition().x - 87 / Level.WORLD_SCALE, buggiesBody.getPosition().y - 25/Level.WORLD_SCALE, 0);
         rDef = new RevoluteJointDef();
@@ -103,12 +115,6 @@ public class BuggieCar extends Transport implements IBody{
 
         rDef.initialize(buggiesBody, rearWheelBody, new Vector2(rearWheelBody.getPosition()));
         rearWheelJoint = world.createJoint(rDef);
-
-        super.rearWheel = rearWheelBody;
-        super.frontWheel = frontWheelBody;
-        super.rover = buggiesBody;
-
-        return buggiesBody;
     }
 
     @Override
