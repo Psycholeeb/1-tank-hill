@@ -40,9 +40,9 @@ import vlad.stupak.Setting;
 import vlad.stupak.controls.JumpButtonHandler;
 import vlad.stupak.controls.LeftRightButtons;
 import vlad.stupak.controls.JumpIndicator;
-import vlad.stupak.player.Buggies;
+import vlad.stupak.player.BtrCar;
+import vlad.stupak.player.BuggieCar;
 import vlad.stupak.player.IBody;
-import vlad.stupak.player.Btr;
 import vlad.stupak.player.Transport;
 import vlad.stupak.player.UserData;
 import vlad.stupak.screens.LevelCompletedScreen;
@@ -96,8 +96,8 @@ public class Level extends StageGame{
     private PausedScreen pausedScreen;
 
     private Transport currentCar;
-    private Btr btr;
-    private Buggies buggies;
+    private BtrCar btrCar;
+    private BuggieCar buggieCar;
     private int selectCar = 2;
 
     public Level(String directory) {
@@ -128,8 +128,6 @@ public class Level extends StageGame{
         addBackground(bg, true, false);
     }
 
-
-
     private void build() {
         hasBeenBuilt = true;
 
@@ -140,7 +138,7 @@ public class Level extends StageGame{
         loadMap("tiled/" + directory + "/level.tmx");
 
         if (currentCar == null) {
-            throw new Error("btr not defined");
+            throw new Error("btrCar not defined");
         }
         if (finish == null) {
             throw new Error("finish not defined");
@@ -409,19 +407,19 @@ public class Level extends StageGame{
             if (object.getName().equals("player")) {
                 switch (selectCar){
                     case 1:
-                        btr = new Btr(this);
-                        currentCar = btr;
+                        btrCar = new BtrCar(this);
+                        currentCar = btrCar;
                         currentCar.setPosition(rect.x, rect.y);
                         addChild(currentCar);
-                        addBody(btr);
+                        addBody(btrCar);
                         stage.addActor(currentCar);
                         break;
                     case 2:
-                        buggies = new Buggies(this);
-                        currentCar = buggies;
+                        buggieCar = new BuggieCar(this);
+                        currentCar = buggieCar;
                         currentCar.setPosition(rect.x, rect.y);
                         addChild(currentCar);
-                        addBody(buggies);
+                        addBody(buggieCar);
                         stage.addActor(currentCar);
                         break;
                     default:

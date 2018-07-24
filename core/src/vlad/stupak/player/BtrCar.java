@@ -15,25 +15,19 @@ import com.boontaran.douglasPeucker.DouglasPeucker;
 import vlad.stupak.Main;
 import vlad.stupak.levels.Level;
 
-public class Btr extends Transport implements IBody{
+public class BtrCar extends Transport implements IBody{
 
     private Image roverImg, frontWheelImage, frontWheelImage2, rearWheelImg, rearWheelImg2;
-
     private Group frontWheelCont, frontWheelCont2, rearWheelCont, rearWheelCont2;
-
     private Body rover, frontWheel, frontWheel2, rearWheel, rearWheel2;
-
     private Joint frontWheelJoint, rearWheelJoint;
-
     private World world;
-
     private float jumpWait = 0;
+    private final float RESTITUTION_WHEEL = 1f;
+    private final float FRICTION_WHEEL = 0.3f;
+    private final float DENSITY_WHEEL = 1f;
 
-    private Level level;
-
-    public Btr(Level level) {
-        this.level = level;
-
+    public BtrCar(Level level) {
         roverImg = new Image(Main.atlas.findRegion("btr_body"));
         childs.addActor(roverImg);
         roverImg.setX(-roverImg.getWidth()/2);
@@ -65,7 +59,7 @@ public class Btr extends Transport implements IBody{
 
 
         // FRONT WHEEL
-        frontWheel = createWheel(world, 18 / Level.WORLD_SCALE);
+        frontWheel = createWheel(world, 18 / Level.WORLD_SCALE, RESTITUTION_WHEEL, FRICTION_WHEEL, DENSITY_WHEEL);
         frontWheel.setTransform(rover.getPosition().x + 75 / Level.WORLD_SCALE, rover.getPosition().y + 1/Level.WORLD_SCALE, 0);
 
         frontWheelCont = new Group();
@@ -87,7 +81,7 @@ public class Btr extends Transport implements IBody{
 
 
         //FRONT WHEEL 2
-        frontWheel2 = createWheel(world, 18 / Level.WORLD_SCALE);
+        frontWheel2 = createWheel(world, 18 / Level.WORLD_SCALE, RESTITUTION_WHEEL, FRICTION_WHEEL, DENSITY_WHEEL);
         frontWheel2.setTransform(rover.getPosition().x + 27 / Level.WORLD_SCALE, rover.getPosition().y + 1/Level.WORLD_SCALE, 0);
 
         frontWheelCont2 = new Group();
@@ -108,7 +102,7 @@ public class Btr extends Transport implements IBody{
 
 
         // REAR WHEEL
-        rearWheel = createWheel(world, 18 / Level.WORLD_SCALE);
+        rearWheel = createWheel(world, 18 / Level.WORLD_SCALE, RESTITUTION_WHEEL, FRICTION_WHEEL, DENSITY_WHEEL);
         rearWheel.setTransform(rover.getPosition().x - 83 / Level.WORLD_SCALE, rover.getPosition().y + 1/Level.WORLD_SCALE, 0);
         rDef = new RevoluteJointDef();
 
@@ -129,7 +123,7 @@ public class Btr extends Transport implements IBody{
 
 
         // REAR WHEEL 2
-        rearWheel2 = createWheel(world, 18 / Level.WORLD_SCALE);
+        rearWheel2 = createWheel(world, 18 / Level.WORLD_SCALE, RESTITUTION_WHEEL, FRICTION_WHEEL, DENSITY_WHEEL);
         rearWheel2.setTransform(rover.getPosition().x - 35 / Level.WORLD_SCALE, rover.getPosition().y + 1/Level.WORLD_SCALE, 0);
         rDef = new RevoluteJointDef();
 

@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Joint;
+import com.badlogic.gdx.physics.box2d.MassData;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.physics.box2d.joints.RevoluteJointDef;
 import com.badlogic.gdx.scenes.scene2d.Group;
@@ -15,7 +16,7 @@ import com.boontaran.douglasPeucker.DouglasPeucker;
 import vlad.stupak.Main;
 import vlad.stupak.levels.Level;
 
-public class Buggies extends Transport implements IBody{
+public class BuggieCar extends Transport implements IBody{
 
     private Image buggiesImg, frontWheelImage, rearWheelImg;
     private Group frontWheelCont, rearWheelCont;
@@ -23,11 +24,14 @@ public class Buggies extends Transport implements IBody{
     private Joint frontWheelJoint, rearWheelJoint;
     private World world;
     private final int CLEARENCE = -20;
+    private final float RESTITUTION_WHEEL = 0.3f; // упругость, 0 не отскочит, 1 отскочит
+    private final float FRICTION_WHEEL = 0.8f; // трение от 0 до 1
+    private final float DENSITY_WHEEL = 0.5f; //плотность
 
 
     private float jumpWait = 0;
 
-    public Buggies(Level level) {
+    public BuggieCar(Level level) {
         buggiesImg = new Image(Main.atlas.findRegion("buggies_body"));
         childs.addActor(buggiesImg);
         buggiesImg.setX(-buggiesImg.getWidth()/2);
@@ -60,8 +64,8 @@ public class Buggies extends Transport implements IBody{
 
 
         // FRONT WHEEL
-        frontWheelBody = createWheel(world, 28 / Level.WORLD_SCALE);
-        frontWheelBody.setTransform(buggiesBody.getPosition().x + 92/ Level.WORLD_SCALE, buggiesBody.getPosition().y - 10/Level.WORLD_SCALE, 0);
+        frontWheelBody = createWheel(world, 28 / Level.WORLD_SCALE, RESTITUTION_WHEEL, FRICTION_WHEEL, DENSITY_WHEEL);
+        frontWheelBody.setTransform(buggiesBody.getPosition().x + 92/ Level.WORLD_SCALE, buggiesBody.getPosition().y - 20/Level.WORLD_SCALE, 0);
 
         frontWheelCont = new Group();
         frontWheelImage = new Image(Main.atlas.findRegion("buggies_wheel"));
@@ -81,8 +85,8 @@ public class Buggies extends Transport implements IBody{
         frontWheelJoint = world.createJoint(rDef);
 
         // REAR WHEEL
-        rearWheelBody = createWheel(world, 28 / Level.WORLD_SCALE);
-        rearWheelBody.setTransform(buggiesBody.getPosition().x - 87 / Level.WORLD_SCALE, buggiesBody.getPosition().y - 15/Level.WORLD_SCALE, 0);
+        rearWheelBody = createWheel(world, 28 / Level.WORLD_SCALE, RESTITUTION_WHEEL, FRICTION_WHEEL, DENSITY_WHEEL);
+        rearWheelBody.setTransform(buggiesBody.getPosition().x - 87 / Level.WORLD_SCALE, buggiesBody.getPosition().y - 25/Level.WORLD_SCALE, 0);
         rDef = new RevoluteJointDef();
 
 

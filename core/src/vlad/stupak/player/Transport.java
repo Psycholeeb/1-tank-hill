@@ -35,7 +35,7 @@ public class Transport extends ActorClip{
     private float jumpImpulse = Setting.JUMP_IMPULSE;
     private float jumpWait = 0;
 
-    public Body createWheel(World world, float rad) {
+    public Body createWheel(World world, float rad, float restitution, float friction, float density) {
 
         BodyDef def = new BodyDef();
         def.type = BodyDef.BodyType.DynamicBody;
@@ -49,9 +49,9 @@ public class Transport extends ActorClip{
         shape.setRadius(rad);
 
         fDef.shape = shape;
-        fDef.restitution = Setting.RESTITUTION;
-        fDef.friction = Setting.FRICTION;
-        fDef.density = Setting.DENSITY;
+        fDef.restitution = restitution;
+        fDef.friction = friction;
+        fDef.density = density;
 
         body.createFixture(fDef);
         shape.dispose();
