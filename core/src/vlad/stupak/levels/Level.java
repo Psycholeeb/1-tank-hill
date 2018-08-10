@@ -674,7 +674,6 @@ public class Level extends StageGame{
         if (camera.position.y + camera.viewportHeight/2 > levelHeight) {
             camera.position.y = levelHeight - camera.viewportHeight/2;
         }
-
     }
 
     public void addChild(Actor actor) {

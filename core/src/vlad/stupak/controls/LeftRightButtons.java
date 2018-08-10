@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import vlad.stupak.Main;
+import vlad.stupak.levels.Level;
 
 public class LeftRightButtons extends Group{
 
@@ -18,7 +19,6 @@ public class LeftRightButtons extends Group{
     private static final int RIGHT = 1;
     private static final int LEFT = 2;
     private int direction;
-
 
     public LeftRightButtons(float minHeight) {
         idle = new Image(Main.atlas.findRegion("joystick"));

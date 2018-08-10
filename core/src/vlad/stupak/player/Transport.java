@@ -25,19 +25,16 @@ import vlad.stupak.levels.Level;
 
 public class Transport extends ActorClip{
     public  Body rover, frontWheel, frontWheel2, rearWheel, rearWheel2;
-
     public Joint frontWheelJoint2, rearWheelJoint2;
-
     private boolean hasDestoyed = false;
     public boolean destroyOnNextUpdate = false;
-
     private boolean isTouchGround = true;
-
     private float jumpImpulse = Setting.JUMP_IMPULSE;
     private float jumpWait = 0;
+    private static final short SPRING_CATEGORY_BITS = 1;
+    private static final short WHEEL_CATEGORY_BITS = 2;
 
     public Body createWheel(World world, float rad, float restitution, float friction, float density) {
-
         BodyDef wheelDef = new BodyDef();
         wheelDef.type = BodyDef.BodyType.DynamicBody;
         wheelDef.linearDamping = 0;
@@ -53,6 +50,8 @@ public class Transport extends ActorClip{
         fDef.restitution = restitution;
         fDef.friction = friction;
         fDef.density = density;
+        fDef.filter.categoryBits = WHEEL_CATEGORY_BITS;
+        fDef.filter.maskBits = SPRING_CATEGORY_BITS;
 
         wheelBody.createFixture(fDef);
         shape.dispose();
@@ -61,7 +60,6 @@ public class Transport extends ActorClip{
     }
 
     public Body createSpring(World world, float restitution, float friction, float density) {
-
         BodyDef springDef = new BodyDef();
         springDef.type = BodyDef.BodyType.DynamicBody;
         springDef.linearDamping = 0;
@@ -71,11 +69,13 @@ public class Transport extends ActorClip{
 
         FixtureDef fDef = new FixtureDef();
         PolygonShape shape = new PolygonShape();
+        shape.setAsBox(0.3f, 0.8f);
 
         fDef.shape = shape;
         fDef.restitution = restitution;
         fDef.friction = friction;
         fDef.density = density;
+        fDef.isSensor = true;
 
         springBody.createFixture(fDef);
         shape.dispose();
@@ -141,7 +141,7 @@ public class Transport extends ActorClip{
 
             fDef.shape = shape;
             fDef.restitution = 0; //0.3f эластичность
-            fDef.density = 1;  //1 плотность кг/m^2
+            fDef.density = 0.4f;  //1 плотность кг/m^2
 
             body.createFixture(fDef);
             shape.dispose();
