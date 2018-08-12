@@ -146,7 +146,7 @@ public class BtrCar extends Transport implements IBody{
         super.rearWheel2 = rearWheel2;
         super.frontWheel = frontWheel;
         super.frontWheel2 = frontWheel2;
-        super.rover = rover;
+        super.bodyCar = rover;
 
         return rover;
     }

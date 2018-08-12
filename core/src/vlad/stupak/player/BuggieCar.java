@@ -5,7 +5,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Joint;
-import com.badlogic.gdx.physics.box2d.MassData;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.physics.box2d.joints.RevoluteJointDef;
 import com.badlogic.gdx.scenes.scene2d.Group;
@@ -18,12 +17,9 @@ import vlad.stupak.levels.Level;
 
 public class BuggieCar extends Transport implements IBody{
 
-    private Image buggiesImg, frontWheelImage, rearWheelImg, rearSpringImg;
-    private Group frontWheelCont, rearWheelCont, rearSpringCont;
     private Body buggiesBody, frontWheelBody, rearWheelBody, rearSpringBody;
     private Joint frontWheelJoint, rearWheelJoint, rearSpringJoint;
     private World world;
-    private RevoluteJointDef rDef = new RevoluteJointDef();;
     private UserData data = new UserData();;
     private final int CLEARENCE = -20;
     private final float RESTITUTION_WHEEL = 0.1f; // упругость, 0 не отскочит, 1 отскочит
@@ -35,14 +31,14 @@ public class BuggieCar extends Transport implements IBody{
     private float jumpWait = 0;
 
     public BuggieCar(Level level) {
-        buggiesImg = new Image(Main.atlas.findRegion("buggies_body"));
+    }
+
+    public Body createBody(World world) {
+        Image buggiesImg = new Image(Main.atlas.findRegion("buggies_body"));
         childs.addActor(buggiesImg);
         buggiesImg.setX(-buggiesImg.getWidth()/2);
         buggiesImg.setY(CLEARENCE);
-    }
 
-    @Override
-    public Body createBody(World world) {
         this.world = world;
 
         BodyDef def = new BodyDef();
@@ -71,7 +67,7 @@ public class BuggieCar extends Transport implements IBody{
 
         super.rearWheel = rearWheelBody;
         super.frontWheel = frontWheelBody;
-        super.rover = buggiesBody;
+        super.bodyCar = buggiesBody;
 
         return buggiesBody;
     }
@@ -79,10 +75,10 @@ public class BuggieCar extends Transport implements IBody{
     private void createFrontWheel() {
         frontWheelBody = createWheel(world, 28 / Level.WORLD_SCALE, RESTITUTION_WHEEL, FRICTION_WHEEL, DENSITY_WHEEL);
         frontWheelBody.setTransform(buggiesBody.getPosition().x + 92/ Level.WORLD_SCALE, buggiesBody.getPosition().y - 20/Level.WORLD_SCALE, 0);
-        rDef = new RevoluteJointDef();
+        RevoluteJointDef frontWheelDef = new RevoluteJointDef();
 
-        frontWheelCont = new Group();
-        frontWheelImage = new Image(Main.atlas.findRegion("buggies_wheel"));
+        Group frontWheelCont = new Group();
+        Image frontWheelImage = new Image(Main.atlas.findRegion("buggies_wheel"));
         frontWheelCont.addActor(frontWheelImage);
         frontWheelImage.setX(-frontWheelImage.getWidth()/2);
         frontWheelImage.setY(-frontWheelImage.getHeight()/2);
@@ -92,17 +88,16 @@ public class BuggieCar extends Transport implements IBody{
         data.actor = frontWheelCont;
         frontWheelBody.setUserData(data);
 
-        rDef.initialize(buggiesBody, frontWheelBody, new Vector2(frontWheelBody.getPosition()));
-        frontWheelJoint = world.createJoint(rDef);
+        frontWheelDef.initialize(buggiesBody, frontWheelBody, new Vector2(frontWheelBody.getPosition()));
+        frontWheelJoint = world.createJoint(frontWheelDef);
     }
 
     private void createRearSpring() {
         rearSpringBody = createSpring(world, RESTITUTION_WHEEL, FRICTION_WHEEL, DENSITY_SPRING);
-        //rearSpringBody.setTransform(buggiesBody.getPosition().x - 67 / Level.WORLD_SCALE, buggiesBody.getPosition().y - 25/Level.WORLD_SCALE, 0); // -67 -25
-        rDef = new RevoluteJointDef();
+        RevoluteJointDef rearSpringDef = new RevoluteJointDef();
 
-        rearSpringCont = new Group();
-        rearSpringImg = new Image(Main.atlas.findRegion("buggies_spring"));
+        Group rearSpringCont = new Group();
+        Image rearSpringImg = new Image(Main.atlas.findRegion("buggies_spring"));
         rearSpringCont.addActor(rearSpringImg);
         rearSpringImg.setX(-rearSpringImg.getWidth()/2);
         rearSpringImg.setY(-rearSpringImg.getHeight()/2);
@@ -112,25 +107,24 @@ public class BuggieCar extends Transport implements IBody{
         data.actor = rearSpringCont;
         rearSpringBody.setUserData(data);
 
-        rDef.bodyA = rearSpringBody;
-        rDef.bodyB = buggiesBody;
-        rDef.collideConnected = false;
-        rDef.localAnchorA.set(0,0.8f);
-        rDef.localAnchorB.set(-1.1f,0.3f);
-        rDef.enableLimit = true;
-        rDef.lowerAngle = (float) Math.toRadians(55);
-        rDef.upperAngle = (float) Math.toRadians(60);
-        //rDef.initialize(buggiesBody, rearSpringBody, new Vector2(rearSpringBody.getPosition()));
-        rearSpringJoint = world.createJoint(rDef);
+        rearSpringDef.bodyA = rearSpringBody;
+        rearSpringDef.bodyB = buggiesBody;
+        rearSpringDef.collideConnected = false;
+        rearSpringDef.localAnchorA.set(0,0.8f);
+        rearSpringDef.localAnchorB.set(-1.1f,0.3f);
+        rearSpringDef.enableLimit = true;
+        rearSpringDef.lowerAngle = (float) Math.toRadians(55);
+        rearSpringDef.upperAngle = (float) Math.toRadians(60);
+        rearSpringJoint = world.createJoint(rearSpringDef);
     }
 
     private void createRearWheel() {
         rearWheelBody = createWheel(world, 28 / Level.WORLD_SCALE, RESTITUTION_WHEEL, FRICTION_WHEEL, DENSITY_WHEEL);
         rearWheelBody.setTransform(buggiesBody.getPosition().x - 87/ Level.WORLD_SCALE, buggiesBody.getPosition().y - 25/Level.WORLD_SCALE, 0); // -87 -25
-        rDef = new RevoluteJointDef();
+        RevoluteJointDef rearWheelDef = new RevoluteJointDef();
 
-        rearWheelCont = new Group();
-        rearWheelImg = new Image(Main.atlas.findRegion("buggies_wheel"));
+        Group rearWheelCont = new Group();
+        Image rearWheelImg = new Image(Main.atlas.findRegion("buggies_wheel"));
         rearWheelCont.addActor(rearWheelImg);
         rearWheelImg.setX(-rearWheelImg.getWidth()/2);
         rearWheelImg.setY(-rearWheelImg.getHeight()/2);
@@ -140,12 +134,11 @@ public class BuggieCar extends Transport implements IBody{
         data.actor = rearWheelCont;
         rearWheelBody.setUserData(data);
 
-        rDef.bodyA = rearSpringBody;
-        rDef.bodyB = rearWheelBody;
-        rDef.localAnchorA.set(0,-0.8f);
-        rDef.localAnchorB.set(0,0);
-        //rDef.initialize(rearSpringBody, rearWheelBody, new Vector2(rearWheelBody.getPosition()));
-        rearWheelJoint = world.createJoint(rDef);
+        rearWheelDef.bodyA = rearSpringBody;
+        rearWheelDef.bodyB = rearWheelBody;
+        rearWheelDef.localAnchorA.set(0,-0.8f);
+        rearWheelDef.localAnchorB.set(0,0);
+        rearWheelJoint = world.createJoint(rearWheelDef);
     }
 
     @Override

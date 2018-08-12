@@ -11,7 +11,6 @@ import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.Joint;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
-import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.boontaran.games.ActorClip;
@@ -24,7 +23,7 @@ import vlad.stupak.Setting;
 import vlad.stupak.levels.Level;
 
 public class Transport extends ActorClip{
-    public  Body rover, frontWheel, frontWheel2, rearWheel, rearWheel2;
+    public  Body bodyCar, frontWheel, frontWheel2, rearWheel, rearWheel2;
     public Joint frontWheelJoint2, rearWheelJoint2;
     private boolean hasDestoyed = false;
     public boolean destroyOnNextUpdate = false;
@@ -174,9 +173,9 @@ public class Transport extends ActorClip{
     public void jumpBack(float value) {
         if (value < 0.2f) value = 0.2f;
 
-        rover.applyLinearImpulse(0, jumpImpulse * value,
-                rover.getWorldCenter().x + 5 / Level.WORLD_SCALE,
-                rover.getWorldCenter().y, true);
+        bodyCar.applyLinearImpulse(0, jumpImpulse * value,
+                bodyCar.getWorldCenter().x + 5 / Level.WORLD_SCALE,
+                bodyCar.getWorldCenter().y, true);
         isTouchGround = false;
         jumpWait = 0.3f;
     }
@@ -184,9 +183,9 @@ public class Transport extends ActorClip{
     public void jumpForward(float value){
         if (value < 0.2f) value = 0.2f;
 
-        rover.applyLinearImpulse(0, jumpImpulse * value,
-                rover.getWorldCenter().x - 4 / Level.WORLD_SCALE,
-                rover.getWorldCenter().y, true);
+        bodyCar.applyLinearImpulse(0, jumpImpulse * value,
+                bodyCar.getWorldCenter().x - 4 / Level.WORLD_SCALE,
+                bodyCar.getWorldCenter().y, true);
         isTouchGround = false;
         jumpWait = 0.3f;
     }

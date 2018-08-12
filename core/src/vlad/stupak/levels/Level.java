@@ -305,11 +305,11 @@ public class Level extends StageGame{
             Body bodyA = contact.getFixtureA().getBody();
             Body bodyB = contact.getFixtureB().getBody();
 
-            if (bodyA == currentCar.rover) {
+            if (bodyA == currentCar.bodyCar) {
                 playerTouch(bodyB);
                 return;
             }
-            if (bodyB == currentCar.rover) {
+            if (bodyB == currentCar.bodyCar) {
                 playerTouch(bodyA);
                 return;
             }
