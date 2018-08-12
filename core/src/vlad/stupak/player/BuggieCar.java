@@ -26,10 +26,10 @@ public class BuggieCar extends Transport implements IBody{
     private RevoluteJointDef rDef = new RevoluteJointDef();;
     private UserData data = new UserData();;
     private final int CLEARENCE = -20;
-    private final float RESTITUTION_WHEEL = 0.3f; // упругость, 0 не отскочит, 1 отскочит
+    private final float RESTITUTION_WHEEL = 0.1f; // упругость, 0 не отскочит, 1 отскочит
     private final float FRICTION_WHEEL = 0.8f; // трение от 0 до 1
-    private final float DENSITY_WHEEL = 0.1f; //плотность
-    private final float DENSITY_SPRING = 0.2f; //плотность
+    private final float DENSITY_WHEEL = 0.8f; //плотность
+    private final float DENSITY_SPRING = 0.4f; //плотность
 
 
     private float jumpWait = 0;
@@ -118,8 +118,8 @@ public class BuggieCar extends Transport implements IBody{
         rDef.localAnchorA.set(0,0.8f);
         rDef.localAnchorB.set(-1.1f,0.3f);
         rDef.enableLimit = true;
-        rDef.lowerAngle = (float) Math.toRadians(40);
-        rDef.upperAngle = (float) Math.toRadians(45);
+        rDef.lowerAngle = (float) Math.toRadians(55);
+        rDef.upperAngle = (float) Math.toRadians(60);
         //rDef.initialize(buggiesBody, rearSpringBody, new Vector2(rearSpringBody.getPosition()));
         rearSpringJoint = world.createJoint(rDef);
     }
