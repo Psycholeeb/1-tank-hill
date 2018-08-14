@@ -17,8 +17,8 @@ import vlad.stupak.levels.Level;
 
 public class BuggieCar extends Transport implements IBody{
 
-    private Body buggiesBody, frontWheelBody, rearWheelBody, rearSpringBody;
-    private Joint frontWheelJoint, rearWheelJoint, rearSpringJoint;
+    private Body buggiesBody, frontWheelBody, rearWheelBody, rearSpringBody, frontSpringBody;
+    private Joint frontWheelJoint, rearWheelJoint, rearSpringJoint, frontSpringJoint;
     private World world;
     private UserData data = new UserData();;
     private final int CLEARENCE = -20;
@@ -62,6 +62,7 @@ public class BuggieCar extends Transport implements IBody{
         buggiesBody = createBodyFromTriangles(world, triangles);
         buggiesBody.setTransform((getX()) / Level.WORLD_SCALE, (getY()) / Level.WORLD_SCALE, 0);
 
+        createFrontSpring();
         createFrontWheel();
         createRearSpring();
         createRearWheel();
@@ -71,6 +72,32 @@ public class BuggieCar extends Transport implements IBody{
         super.bodyCar = buggiesBody;
 
         return buggiesBody;
+    }
+    private void createFrontSpring() {
+        frontSpringBody = createSpring(world, RESTITUTION_WHEEL, FRICTION_WHEEL, DENSITY_SPRING);
+        RevoluteJointDef frontSpringDef = new RevoluteJointDef();
+
+        Group frontSpringCont = new Group();
+        Image frontSpringImg = new Image(Main.atlas.findRegion("buggies_spring"));
+        frontSpringCont.addActor(frontSpringImg);
+        frontSpringImg.setX(-frontSpringImg.getWidth()/2);
+        frontSpringImg.setY(-frontSpringImg.getHeight()/2);
+
+        getParent().addActor(frontSpringCont);
+        frontSpringCont.setZIndex(1);
+        data = new UserData();
+        data.actor = frontSpringCont;
+        frontSpringBody.setUserData(data);
+
+        frontSpringDef.bodyA = frontSpringBody;
+        frontSpringDef.bodyB = buggiesBody;
+        frontSpringDef.collideConnected = false;
+        frontSpringDef.localAnchorA.set(0,0.8f);
+        frontSpringDef.localAnchorB.set(1.8f,0.3f);
+        frontSpringDef.enableLimit = true;
+        frontSpringDef.lowerAngle = (float) Math.toRadians(300);
+        frontSpringDef.upperAngle = (float) Math.toRadians(310);
+        frontSpringJoint = world.createJoint(frontSpringDef);
     }
 
     private void createFrontWheel() {
@@ -90,7 +117,10 @@ public class BuggieCar extends Transport implements IBody{
         data.actor = frontWheelCont;
         frontWheelBody.setUserData(data);
 
-        frontWheelDef.initialize(buggiesBody, frontWheelBody, new Vector2(frontWheelBody.getPosition()));
+        frontWheelDef.bodyA = frontSpringBody;
+        frontWheelDef.bodyB = frontWheelBody;
+        frontWheelDef.localAnchorA.set(0,-0.8f);
+        frontWheelDef.localAnchorB.set(0,0);
         frontWheelJoint = world.createJoint(frontWheelDef);
     }
 
@@ -114,7 +144,7 @@ public class BuggieCar extends Transport implements IBody{
         rearSpringDef.bodyB = buggiesBody;
         rearSpringDef.collideConnected = false;
         rearSpringDef.localAnchorA.set(0,0.8f);
-        rearSpringDef.localAnchorB.set(-1.1f,0.3f);
+        rearSpringDef.localAnchorB.set(-1.5f,0.3f);
         rearSpringDef.enableLimit = true;
         rearSpringDef.lowerAngle = (float) Math.toRadians(50);
         rearSpringDef.upperAngle = (float) Math.toRadians(60);
