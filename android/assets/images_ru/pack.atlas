@@ -4,27 +4,6 @@ size: 2048,1024
 format: RGBA8888
 filter: Nearest,Linear
 repeat: none
-astronaut
-  rotate: false
-  xy: 961, 84
-  size: 61, 80
-  orig: 61, 80
-  offset: 0, 0
-  index: -1
-astronaut_fall
-  rotate: false
-  xy: 1987, 930
-  size: 56, 90
-  orig: 56, 90
-  offset: 0, 0
-  index: -1
-astronaut_model
-  rotate: false
-  xy: 1223, 375
-  size: 53, 70
-  orig: 53, 70
-  offset: 0, 0
-  index: -1
 btr_body
   rotate: false
   xy: 1707, 614
@@ -41,7 +20,7 @@ btr_model
   index: -1
 btr_wheel
   rotate: false
-  xy: 718, 16
+  xy: 1987, 980
   size: 40, 40
   orig: 40, 40
   offset: 0, 0
@@ -62,21 +41,14 @@ buggies_model
   index: -1
 buggies_spring
   rotate: false
-  xy: 1035, 463
-  size: 18, 51
-  orig: 18, 51
-  offset: 0, 0
-  index: -1
-buggies_spring_model
-  rotate: false
-  xy: 1343, 677
+  xy: 1979, 629
   size: 18, 51
   orig: 18, 51
   offset: 0, 0
   index: -1
 buggies_wheel
   rotate: false
-  xy: 1693, 388
+  xy: 1821, 456
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
@@ -181,7 +153,7 @@ jump_gauge_off
   index: -1
 jump_gauge_on
   rotate: false
-  xy: 1987, 921
+  xy: 1035, 507
   size: 8, 7
   orig: 8, 7
   offset: 0, 0
@@ -279,14 +251,14 @@ quit_btn_down
   index: -1
 rate
   rotate: false
-  xy: 961, 20
+  xy: 1693, 454
   size: 62, 62
   orig: 62, 62
   offset: 0, 0
   index: -1
 rate_down
   rotate: false
-  xy: 1979, 618
+  xy: 1757, 454
   size: 62, 62
   orig: 62, 62
   offset: 0, 0
@@ -307,28 +279,28 @@ retry_btn_down
   index: -1
 settings_btn
   rotate: false
-  xy: 1693, 450
+  xy: 961, 98
   size: 66, 66
   orig: 66, 66
   offset: 0, 0
   index: -1
 settings_btn_down
   rotate: false
-  xy: 1761, 450
+  xy: 961, 30
   size: 66, 66
   orig: 66, 66
   offset: 0, 0
   index: -1
 share
   rotate: false
-  xy: 1829, 450
+  xy: 1029, 73
   size: 66, 66
   orig: 66, 66
   offset: 0, 0
   index: -1
 share_down
   rotate: false
-  xy: 1897, 450
+  xy: 1097, 73
   size: 66, 66
   orig: 66, 66
   offset: 0, 0

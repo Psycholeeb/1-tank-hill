@@ -2,7 +2,7 @@ package vlad.stupak;
 
 public class Setting {
     public static final boolean DEBUG_GAME = false;
-    public static final boolean DEBUG_WORLD = true;
+    public static final boolean DEBUG_WORLD = false;
 
 
     public static final float GRAVITY = 40;  //8 гравитация

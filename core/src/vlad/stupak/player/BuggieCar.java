@@ -20,8 +20,8 @@ public class BuggieCar extends Transport implements IBody{
     private Body buggiesBody, frontWheelBody, rearWheelBody, rearSpringBody, frontSpringBody;
     private Joint frontWheelJoint, rearWheelJoint, rearSpringJoint, frontSpringJoint;
     private World world;
-    private UserData data = new UserData();;
-    private final int CLEARENCE = -20;
+    private UserData data = new UserData();
+    private final int CLEARENCE = -21;
     private final float RESTITUTION_WHEEL = 0.1f; // упругость, 0 не отскочит, 1 отскочит
     private final float FRICTION_WHEEL = 0.8f; // трение от 0 до 1
     private final float DENSITY_WHEEL = 0.8f; //плотность
@@ -184,7 +184,7 @@ public class BuggieCar extends Transport implements IBody{
         if (super.destroyOnNextUpdate) {
             destroyOnNextUpdate = false;
             world.destroyJoint(frontWheelJoint);
-            world.destroyJoint(rearWheelJoint);
+            world.destroyJoint(frontSpringJoint);
         }
 
         super.act(delta);
