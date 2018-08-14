@@ -38,6 +38,7 @@ public class BuggieCar extends Transport implements IBody{
         childs.addActor(buggiesImg);
         buggiesImg.setX(-buggiesImg.getWidth()/2);
         buggiesImg.setY(CLEARENCE);
+        buggiesImg.setZIndex(3);
 
         this.world = world;
 
@@ -78,12 +79,13 @@ public class BuggieCar extends Transport implements IBody{
         RevoluteJointDef frontWheelDef = new RevoluteJointDef();
 
         Group frontWheelCont = new Group();
-        Image frontWheelImage = new Image(Main.atlas.findRegion("buggies_wheel"));
-        frontWheelCont.addActor(frontWheelImage);
-        frontWheelImage.setX(-frontWheelImage.getWidth()/2);
-        frontWheelImage.setY(-frontWheelImage.getHeight()/2);
+        Image frontWheelImg = new Image(Main.atlas.findRegion("buggies_wheel"));
+        frontWheelCont.addActor(frontWheelImg);
+        frontWheelImg.setX(-frontWheelImg.getWidth()/2);
+        frontWheelImg.setY(-frontWheelImg.getHeight()/2);
 
         getParent().addActor(frontWheelCont);
+        frontWheelCont.setZIndex(2);
         data = new UserData();
         data.actor = frontWheelCont;
         frontWheelBody.setUserData(data);
@@ -103,6 +105,7 @@ public class BuggieCar extends Transport implements IBody{
         rearSpringImg.setY(-rearSpringImg.getHeight()/2);
 
         getParent().addActor(rearSpringCont);
+        rearSpringCont.setZIndex(1);
         data = new UserData();
         data.actor = rearSpringCont;
         rearSpringBody.setUserData(data);
@@ -113,7 +116,7 @@ public class BuggieCar extends Transport implements IBody{
         rearSpringDef.localAnchorA.set(0,0.8f);
         rearSpringDef.localAnchorB.set(-1.1f,0.3f);
         rearSpringDef.enableLimit = true;
-        rearSpringDef.lowerAngle = (float) Math.toRadians(55);
+        rearSpringDef.lowerAngle = (float) Math.toRadians(50);
         rearSpringDef.upperAngle = (float) Math.toRadians(60);
         rearSpringJoint = world.createJoint(rearSpringDef);
     }
@@ -130,6 +133,7 @@ public class BuggieCar extends Transport implements IBody{
         rearWheelImg.setY(-rearWheelImg.getHeight()/2);
 
         getParent().addActor(rearWheelCont);
+        rearWheelCont.setZIndex(2);
         data = new UserData();
         data.actor = rearWheelCont;
         rearWheelBody.setUserData(data);
